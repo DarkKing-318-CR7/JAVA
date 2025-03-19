@@ -1,0 +1,155 @@
+body {
+    font-family: sans-serif;
+    margin: 0;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+nav a {
+    margin-left: 10px;
+    text-decoration: none;
+}
+
+.cta {
+    background-color: green;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+}
+
+/* Thêm CSS cho các phần khác */
+body {
+    font-family: sans-serif;
+    margin: 0;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #f0f0f0;
+}
+
+nav a {
+    margin-left: 10px;
+    text-decoration: none;
+    color: #333;
+}
+
+.cta {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.hero {
+    background-image: url('https://cdn.shopvnb.com/uploads/images/kich-thuoc-san-pickleball-4.webp'); /* Thay thế bằng hình ảnh của bạn */
+    background-size: cover;
+    background-position: center;
+    color: white;
+    text-align: center;
+    padding: 100px 20px;
+}
+
+.hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.hero h1 {
+    font-size: 3em;
+    margin-bottom: 20px;
+}
+
+.features {
+    display: flex;
+    justify-content: space-around;
+    padding: 50px 20px;
+}
+
+.feature {
+    background-color: #e0e0e0;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.booking-preview {
+    text-align: center;
+    padding: 50px 20px;
+}
+
+.slots {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.slot {
+    background-color: #f0f0f0;
+    padding: 10px 20px;
+    margin: 0 10px;
+    border-radius: 5px;
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+.booking-page {
+    padding: 50px 20px;
+}
+
+.booking-form {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.filter {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.slots {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.slot {
+    background-color: #f0f0f0;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.slot.available {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.slot.booked {
+    background-color: #f44336;
+    color: white;
+}
+
+.booking-details input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
