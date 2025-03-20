@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Danh sách đặt sân</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<header>
+  <div class="logo">Logo</div>
+  <nav>
+    <a href="/">Trang chủ</a>
+    <a href="/booking">Đặt sân</a>
+    <a href="/shop">Cửa hàng</a>
+    <a href="/about">Giới thiệu</a>
+    <a href="/contact">Liên hệ</a>
+    <a href="/account">Tài khoản</a>
+  </nav>
+</header>
+
+<section class="booking-list">
+  <h1>Danh sách đặt sân</h1>
+  <table>
+    <thead>
+    <tr>
+      <th>Sân</th>
+      <th>Tên</th>
+      <th>Số điện thoại</th>
+      <th>Ngày đặt</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="booking : ${bookings}">
+      <td th:text="${booking.slot}"></td>
+      <td th:text="${booking.name}"></td>
+      <td th:text="${booking.phone}"></td>
+      <td th:text="${booking.date}"></td>
+    </tr>
+    </tbody>
+  </table>
+</section>
+
+<footer>
+  <div class="contact">Liên hệ: ...</div>
+  <div class="social">Mạng xã hội: ...</div>
+</footer>
+
+<script src="/js/script.js"></script>
+</body>
+</html>
