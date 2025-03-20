@@ -1,25 +1,31 @@
 package com.example.pickleball_booking.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+import java.util.Date;
 
 @Entity
-@Table(name = "bookings")
 public class Booking {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String userName;
-    private String courtName;
-    private String bookingTime;
+    private String slot;
+    private String name;
+    private String phone;
+    private Date date = new Date();
 
+    // Constructors, getters, setters...
     public Booking() {}
 
-    public Booking(String userName, String courtName, String bookingTime) {
-        this.userName = userName;
-        this.courtName = courtName;
-        this.bookingTime = bookingTime;
+    public Booking(String slot, String name, String phone) {
+        this.slot = slot;
+        this.name = name;
+        this.phone = phone;
     }
 
     public Long getId() {
@@ -30,27 +36,35 @@ public class Booking {
         this.id = id;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getSlot() {
+        return slot;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setSlot(String slot) {
+        this.slot = slot;
     }
 
-    public String getCourtName() {
-        return courtName;
+    public String getName() {
+        return name;
     }
 
-    public void setCourtName(String courtName) {
-        this.courtName = courtName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getBookingTime() {
-        return bookingTime;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setBookingTime(String bookingTime) {
-        this.bookingTime = bookingTime;
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }
