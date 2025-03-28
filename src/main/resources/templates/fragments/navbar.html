@@ -1,0 +1,47 @@
+<!-- templates/fragments/navbar.html -->
+<nav class="navbar" th:fragment="navbar">
+  <ul class="navbar-menu">
+    <li><a href="/">Trang chủ</a></li>
+    <li><a href="/booking">Đặt sân</a></li>
+    <li><a href="/shop">Cửa hàng</a></li>
+    <li><a href="/cart">Giỏ hàng</a></li>
+    <li><a href="/about">Giới thiệu</a></li>
+    <li><a href="/contact">Liên hệ</a></li>
+    <li><a href="/account">Tài khoản</a></li>
+  </ul>
+</nav>
+
+<style>
+  .navbar {
+    background-color: #333;
+    padding: 10px 0;
+    text-align: center;
+  }
+
+  .navbar-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: center; /* Căn giữa menu */
+    align-items: center;
+  }
+
+  .navbar-menu li {
+    margin: 0 15px; /* Khoảng cách giữa các mục */
+  }
+
+  .navbar-menu li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px 15px;
+    display: inline-block;
+  }
+
+  .navbar-menu li a:hover {
+    background-color: #555;
+    border-radius: 5px;
+  }
+</style>
