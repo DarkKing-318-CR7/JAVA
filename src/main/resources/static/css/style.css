@@ -153,3 +153,115 @@ footer {
     border-radius: 5px;
     border: 1px solid #ccc;
 }
+
+/* ... CSS cho các phần khác ... */
+
+.shop {
+    padding: 50px 20px;
+}
+
+.product {
+    display: inline-block;
+    width: 300px;
+    margin: 20px;
+    text-align: center;
+}
+
+.product img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.product h2 {
+    margin-top: 10px;
+}
+
+.buy {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* ... CSS cho các phần khác ... */
+
+.about {
+    padding: 50px 20px;
+}
+
+.contact {
+    padding: 50px 20px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.contact h1 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.contact p {
+    margin-bottom: 20px;
+}
+
+.contact form {
+    display: flex;
+    flex-direction: column;
+}
+
+.contact input,
+.contact textarea {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.contact textarea {
+    height: 150px;
+}
+
+.contact button.send {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.contact button.send:hover {
+    background-color: #3e8e41;
+}
+
+.account-container {
+    width: 80%;
+    margin: 50px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.account-container h1 {
+    text-align: center;
+}
+
+.account-container table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.account-container th, .account-container td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.account-container th {
+    background-color: #f2f2f2;
+}

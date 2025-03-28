@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Liên hệ</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<header>
+    <div class="logo">Logo</div>
+    <nav>
+        <a th:href="@{/}">Trang chủ</a>
+        <a th:href="@{/booking_form}">Đặt sân</a>
+        <a th:href="@{/shop}">Cửa hàng</a>
+        <a th:href="@{/about}">Giới thiệu</a>
+        <a th:href="@{/contact}">Liên hệ</a>
+        <a th:href="@{/account}">Tài khoản</a>
+    </nav>
+
+    <a href="/booking" class="cta">Đặt sân ngay</a>
+</header>
+
+<section class="contact">
+    <h1>Liên hệ với chúng tôi</h1>
+    <p>Nếu bạn có bất kỳ câu hỏi hoặc thắc mắc nào, vui lòng liên hệ với chúng tôi theo thông tin dưới đây:</p>
+    <p>Địa chỉ: VÕ Oanh, Phường 25, Bình Thạnh</p>
+    <p>Điện thoại: 0876597153</p>
+    <p>Email: huuchinguyen241@gmail.com</p>
+    <form>
+        <input type="text" placeholder="Tên">
+        <input type="email" placeholder="Email">
+        <textarea placeholder="Nội dung"></textarea>
+        <button class="send">Gửi</button>
+    </form>
+</section>
+
+<footer>
+    <div class="contact">Liên hệ: ...</div>
+    <div class="social">Mạng xã hội: ...</div>

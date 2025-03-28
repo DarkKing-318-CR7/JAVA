@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Giới thiệu</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<header>
+  <div class="logo">Logo</div>
+  <nav>
+    <a th:href="@{/}">Trang chủ</a>
+    <a th:href="@{/booking_form}">Đặt sân</a>
+    <a th:href="@{/shop}">Cửa hàng</a>
+    <a th:href="@{/about}">Giới thiệu</a>
+    <a th:href="@{/contact}">Liên hệ</a>
+    <a th:href="@{/account}">Tài khoản</a>
+  </nav>
+
+  <a href="/booking" class="cta">Đặt sân ngay</a>
+</header>
+
+<section class="about">
+  <h1>Giới thiệu về Sân Pickleball</h1>
+  <p>Sân Pickleball của chúng tôi là một trong những sân chơi Pickleball hiện đại và tiện nghi nhất trong khu vực. Với diện tích rộng rãi, sân chơi đạt tiêu chuẩn quốc tế, trang thiết bị hiện đại và đội ngũ nhân viên nhiệt tình, chúng tôi cam kết mang đến cho bạn những trải nghiệm chơi Pickleball tuyệt vời nhất.</p>
+  <h2>Tiện nghi</h2>
+  <ul>
+    <li>Sân chơi đạt tiêu chuẩn quốc tế</li>
+    <li>Trang thiết bị hiện đại</li>
+    <li>Phòng thay đồ sạch sẽ</li>
+    <li>Khu vực nghỉ ngơi thoải mái</li>
+  </ul>
+  <h2>Giờ hoạt động</h2>
+  <p>Thứ 2 - Thứ 6: 10:00 - 22:00</p>
+  <p>Thứ 7 - Chủ Nhật: 8:00 - 22:00</p>
+</section>
+
+<footer>
+  <div class="contact">Liên hệ: ...</div>
+  <div class="social">Mạng xã hội: ...</div>
+</footer>
+
+<script src="/js/script.js"></script>
+</body>
+</html>

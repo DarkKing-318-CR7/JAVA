@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cửa hàng Pickleball</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<header>
+    <div class="logo">Logo</div>
+    <<nav>
+    <a th:href="@{/}">Trang chủ</a>
+    <a th:href="@{/booking_form}">Đặt sân</a>
+    <a th:href="@{/shop}">Cửa hàng</a>
+    <a th:href="@{/about}">Giới thiệu</a>
+    <a th:href="@{/contact}">Liên hệ</a>
+    <a th:href="@{/account}">Tài khoản</a>
+</nav>
+
+    <a href="/booking" class="cta">Đặt sân ngay</a>
+</header>
+
+<section class="shop">
+    <h1>Sản phẩm Pickleball</h1>
+    <div class="product">
+        <img src="/images/product1.jpg" alt="Vợt Pickleball">
+        <h2>Vợt Pickleball</h2>
+        <p>Vợt chất lượng cao, phù hợp cho mọi trình độ.</p>
+        <button class="buy">Mua ngay</button>
+    </div>
+    <div class="product">
+        <img src="/images/product2.jpg" alt="Bóng Pickleball">
+        <h2>Bóng Pickleball</h2>
+        <p>Bóng có độ bền cao, đạt tiêu chuẩn thi đấu.</p>
+        <button class="buy">Mua ngay</button>
+    </div>
+</section>
+
+<footer>
+    <div class="contact">Liên hệ: ...</div>
+    <div class="social">Mạng xã hội: ...</div>
+</footer>
+
+<script src="/js/script.js"></script>
+</body>
+</html>

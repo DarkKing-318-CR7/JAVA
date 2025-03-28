@@ -1,11 +1,6 @@
 package com.example.pickleball_booking.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-
-import java.util.Date;
+import jakarta.persistence.*;
 
 @Entity
 public class Booking {
@@ -14,20 +9,25 @@ public class Booking {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String slot;
-    private String name;
-    private String phone;
-    private Date date = new Date();
+    @ManyToOne
+    @JoinColumn(name = "user_id") // Liên kết với User qua user_id
+    private AppUser user;
 
-    // Constructors, getters, setters...
+    private String bookingDate;
+    private String bookingTime;
+    private String courtName;
+
+    // Constructors
     public Booking() {}
 
-    public Booking(String slot, String name, String phone) {
-        this.slot = slot;
-        this.name = name;
-        this.phone = phone;
+    public Booking(AppUser user, String bookingDate, String bookingTime, String courtName) {
+        this.user = user;
+        this.bookingDate = bookingDate;
+        this.bookingTime = bookingTime;
+        this.courtName = courtName;
     }
 
+    // Getters và Setters
     public Long getId() {
         return id;
     }
@@ -36,35 +36,35 @@ public class Booking {
         this.id = id;
     }
 
-    public String getSlot() {
-        return slot;
+    public AppUser getUser() {
+        return user;
     }
 
-    public void setSlot(String slot) {
-        this.slot = slot;
+    public void setUser(AppUser user) {
+        this.user = user;
     }
 
-    public String getName() {
-        return name;
+    public String getBookingDate() {
+        return bookingDate;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setBookingDate(String bookingDate) {
+        this.bookingDate = bookingDate;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getBookingTime() {
+        return bookingTime;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setBookingTime(String bookingTime) {
+        this.bookingTime = bookingTime;
     }
 
-    public Date getDate() {
-        return date;
+    public String getCourtName() {
+        return courtName;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setCourtName(String courtName) {
+        this.courtName = courtName;
     }
 }
