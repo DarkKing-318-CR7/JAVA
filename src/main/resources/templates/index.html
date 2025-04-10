@@ -2,54 +2,18 @@
 <html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Sân Pickleball - Trang chủ</title>
+  <title>Trang chủ - Pickleball</title>
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-<header>
-  <div class="logo">Logo</div>
-  <nav>
-    <a th:href="@{/}">Trang chủ</a>
-    <a th:href="@{/booking_form}">Đặt sân</a>
-    <a th:href="@{/shop}">Cửa hàng</a>
-    <a th:href="@{/about}">Giới thiệu</a>
-    <a th:href="@{/contact}">Liên hệ</a>
-    <a th:href="@{/account}">Tài khoản</a>
-  </nav>
-
-  <a th:href="@{/booking_form}" class="cta">Đặt sân ngay</a>
-</header>
+<header th:replace="layout/header :: header"></header>
 
 <section class="hero">
-  <div class="hero-content">
-    <h1>Đặt sân Pickleball dễ dàng, chơi ngay hôm nay!</h1>
-    <p>Sân Pickleball tiêu chuẩn quốc tế, tiện nghi hiện đại, giờ hoạt động linh hoạt.</p>
-    <a th:href="@{/booking_form}" class="cta">Đặt sân ngay</a>
-  </div>
+  <h1>Đặt sân Pickleball dễ dàng, chơi ngay hôm nay!</h1>
+  <p>Sân tiêu chuẩn, tiện nghi hiện đại, giờ linh hoạt.</p>
+  <a th:href="@{/booking_form}" class="cta">Đặt sân ngay</a>
 </section>
 
-<section class="features">
-  <h2>Tiện nghi nổi bật</h2>
-  <div class="feature">Sân tiêu chuẩn</div>
-  <div class="feature">Ánh sáng tốt</div>
-  <div class="feature">Phòng thay đồ</div>
-</section>
-
-<section class="booking-preview">
-  <h2>Lịch đặt sân nhanh</h2>
-  <div class="slots">
-    <div class="slot">10:00 - 11:00</div>
-    <div class="slot">11:00 - 12:00</div>
-    <div class="slot">14:00 - 15:00</div>
-  </div>
-  <a th:href="@{/booking_form}" class="cta">Xem thêm</a>
-</section>
-
-<footer>
-  <div class="contact">Liên hệ: ...</div>
-  <div class="social">Mạng xã hội: ...</div>
-</footer>
-
-<script src="/js/script.js"></script>
+<footer th:replace="layout/footer :: footer"></footer>
 </body>
 </html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cửa hàng</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<header th:replace="layout/header :: header"></header>
+
+<h2>Cửa hàng dụng cụ Pickleball</h2>
+<div class="products">
+    <div class="product" th:each="product : ${products}">
+        <h3 th:text="${product.name}"></h3>
+        <p th:text="${product.price} + ' VND'"></p>
+        <a th:href="@{/shop/detail/{id}(id=${product.id})}">Xem chi tiết</a>
+    </div>
+</div>
+
+<footer th:replace="layout/footer :: footer"></footer>
+</body>
+</html>

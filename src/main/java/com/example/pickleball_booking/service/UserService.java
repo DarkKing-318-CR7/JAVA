@@ -1,8 +1,11 @@
 package com.example.pickleball_booking.service;
 
 import com.example.pickleball_booking.model.AppUser;
-import com.example.pickleball_booking.repository.UserRepository;
+import com.example.pickleball_booking.model.Role;
+import com.example.pickleball_booking.repository.AppUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -12,64 +15,67 @@ import java.util.Optional;
 public class UserService {
 
     @Autowired
-    private UserRepository userRepository;
+    private AppUserRepository userRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    /**
-     * Tìm user theo username
-     */
-    public AppUser findByUsername(String username) {
-        AppUser user = userRepository.findByUsername(username);
-        if (user == null) {
-            System.out.println("❌ Không tìm thấy user với username: " + username);
+    public AppUser  getCurrentUser () {
+        String username;
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails) principal).getUsername();
         } else {
-            System.out.println("✅ Tìm thấy user: " + user.getUsername());
+            username = principal.toString();
         }
-        return user;
+
+        return userRepository.findByUsername(username).orElse(null);
     }
 
-    /**
-     * Tìm user theo ID
-     */
-    public Optional<AppUser> findById(Long id) {
-        return userRepository.findById(id);
+    public void registerUser (AppUser  user) {
+        // Kiểm tra xem email hoặc tên người dùng đã tồn tại chưa
+        if (userRepository.existsByEmail(user.getEmail())) {
+            throw new RuntimeException("Email đã tồn tại");
+        }
+        if (userRepository.existsByUsername(user.getUsername())) {
+            throw new RuntimeException("Tên người dùng đã tồn tại");
+        }
+
+        // Mã hóa mật khẩu
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+
+        // Lưu người dùng vào cơ sở dữ liệu
+        userRepository.save(user);
     }
 
-    /**
-     * Lưu user mới (tự động mã hóa mật khẩu)
-     */
-    public AppUser saveUser(AppUser user) {
-        // Kiểm tra nếu mật khẩu chưa được mã hóa thì mới mã hóa
-        if (!user.getPassword().startsWith("$2a$")) { // "$2a$" là tiền tố của BCrypt
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
-        }
+    // Tìm người dùng theo email
+    public Optional<AppUser> getUserByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
+    // Tìm người dùng theo username
+    public Optional<AppUser> getUserByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+
+    // Kiểm tra sự tồn tại của người dùng theo email
+    public boolean userExistsByEmail(String email) {
+        return userRepository.existsByEmail(email);
+    }
+
+    // Kiểm tra sự tồn tại của người dùng theo username
+    public boolean userExistsByUsername(String username) {
+        return userRepository.existsByUsername(username);
+    }
+
+    // Cập nhật thông tin người dùng
+    public AppUser updateUser(AppUser user) {
         return userRepository.save(user);
     }
 
-    /**
-     * Cập nhật thông tin user (nếu mật khẩu mới được nhập, thì mã hóa lại)
-     */
-    public AppUser updateUser(Long id, AppUser updatedUser) {
-        return userRepository.findById(id).map(user -> {
-            user.setUsername(updatedUser.getUsername());
-            user.setEmail(updatedUser.getEmail());
-            user.setPhone(updatedUser.getPhone());
-
-            // Nếu có mật khẩu mới thì mã hóa lại
-            if (updatedUser.getPassword() != null && !updatedUser.getPassword().isEmpty()) {
-                user.setPassword(passwordEncoder.encode(updatedUser.getPassword()));
-            }
-
-            return userRepository.save(user);
-        }).orElseThrow(() -> new RuntimeException("User not found"));
+    public void saveUser(AppUser user) {
+        userRepository.save(user);
     }
 
-    /**
-     * Xóa user theo ID
-     */
-    public void deleteUser(Long id) {
-        userRepository.deleteById(id);
-    }
 }
