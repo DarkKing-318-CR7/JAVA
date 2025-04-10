@@ -2,23 +2,11 @@
 <html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Giới thiệu</title>
+  <title>Cửa hàng</title>
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-<header>
-  <div class="logo">Logo</div>
-  <nav>
-    <a th:href="@{/}">Trang chủ</a>
-    <a th:href="@{/booking_form}">Đặt sân</a>
-    <a th:href="@{/shop}">Cửa hàng</a>
-    <a th:href="@{/about}">Giới thiệu</a>
-    <a th:href="@{/contact}">Liên hệ</a>
-    <a th:href="@{/account}">Tài khoản</a>
-  </nav>
-
-  <a href="/booking" class="cta">Đặt sân ngay</a>
-</header>
+<header th:replace="layout/header :: header"></header>
 
 <section class="about">
   <h1>Giới thiệu về Sân Pickleball</h1>

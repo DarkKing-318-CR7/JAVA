@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Đặt sân Pickleball</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<header th:replace="layout/header :: header"></header>
+
+<form th:action="@{/booking}" method="post">
+  <h2>Đặt sân</h2>
+
+  <label>Chọn ngày:</label>
+  <input type="date" name="date" required>
+
+  <label>Chọn giờ:</label>
+  <select name="slotId">
+    <option th:each="slot : ${availableSlots}" th:value="${slot.id}" th:text="${slot.time}"></option>
+  </select>
+
+  <button type="submit">Đặt ngay</button>
+</form>
+
+
+<footer th:replace="layout/footer :: footer"></footer>
+</body>
+</html>

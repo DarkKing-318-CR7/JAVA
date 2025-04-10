@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Tài khoản</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<header th:replace="layout/header :: header"></header>
+
+<h2>Xin chào, <span th:text="${user.username}"></span>!</h2>
+<p>Email: <span th:text="${user.email}"></span></p>
+<a href="/logout">Đăng xuất</a>
+
+<footer th:replace="layout/footer :: footer"></footer>
+</body>
+</html>
