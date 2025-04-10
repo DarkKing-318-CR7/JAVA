@@ -10,16 +10,20 @@ public class Slot {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String time; // ví dụ: "10:00 - 11:00"
+    @Column(nullable = false)
+    private LocalTime startTime; // Thời gian bắt đầu
+
+    @Column(nullable = false)
+    private LocalTime endTime; // Thời gian kết thúc
 
     private boolean available = true;
 
-    // Nếu cần thêm ngày hoặc sân, bạn có thể thêm:
+    // Nếu cần thêm ngày hoặc sân:
     // private LocalDate date;
     // @ManyToOne
     // private Court court;
 
-    // Getters & Setters
+    // Getters and Setters (Nếu dùng Lombok thì có thể bỏ qua)
     public Long getId() {
         return id;
     }
@@ -28,12 +32,20 @@ public class Slot {
         this.id = id;
     }
 
-    public String getTime() {
-        return time;
+    public LocalTime getStartTime() {
+        return startTime;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setStartTime(LocalTime startTime) {
+        this.startTime = startTime;
+    }
+
+    public LocalTime getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(LocalTime endTime) {
+        this.endTime = endTime;
     }
 
     public boolean isAvailable() {
