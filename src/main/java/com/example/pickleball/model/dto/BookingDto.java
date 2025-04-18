@@ -1,21 +1,17 @@
 package com.example.pickleball.model.dto;
 
-import lombok.*;
+import com.example.pickleball.model.entity.BookingStatus;
+import lombok.Data;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
+@Data
 public class BookingDto {
     private Long id;
+    private LocalDate date;
+    private LocalTime time;
     private Long courtId;
-    private String customerName;
-    private String customerEmail;
-    private LocalDateTime bookingDate;
-    private LocalDateTime startTime;
-    private LocalDateTime endTime;
-    private boolean isConfirmed;
+    private Long userId;
+    private BookingStatus status;
 }

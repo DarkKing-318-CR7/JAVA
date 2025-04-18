@@ -1,54 +1,42 @@
 package com.example.pickleball.Controller;
 
 import com.example.pickleball.model.dto.BookingDto;
-import com.example.pickleball.model.entity.Booking;
 import com.example.pickleball.Service.BookingService;
-import org.springframework.http.HttpStatus;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/bookings")
+@RequiredArgsConstructor
 public class BookingController {
-//
-//    private final BookingService bookingService;
-//
-//    public BookingController(BookingService bookingService) {
-//        this.bookingService = bookingService;
-//    }
-//
-//    @GetMapping
-//    public List<Booking> getAllBookings() {
-//        return bookingService.getAllBookings();
-//    }
-//
-//    @GetMapping("/{id}")
-//    public ResponseEntity<Booking> getBookingById(@PathVariable Long id) {
-//        return ResponseEntity.ok(bookingService.getBookingById(id));
-//    }
-//
-//    @PostMapping
-//    public ResponseEntity<Booking> createBooking(@RequestBody BookingDto bookingDto) {
-//        Booking booking = bookingService.createBooking(bookingDto);
-//        return new ResponseEntity<>(booking, HttpStatus.CREATED);
-//    }
-//
-//    @PutMapping("/{id}")
-//    public ResponseEntity<Booking> updateBooking(@PathVariable Long id, @RequestBody BookingDto bookingDto) {
-//        Booking updatedBooking = bookingService.updateBooking(id, bookingDto);
-//        return ResponseEntity.ok(updatedBooking);
-//    }
-//
-//    @DeleteMapping("/{id}")
-//    public ResponseEntity<Void> cancelBooking(@PathVariable Long id) {
-//        bookingService.cancelBooking(id);
-//        return ResponseEntity.noContent().build();
-//    }
 
-    @GetMapping("/booking")
-    public String booking() {
-        return "bookings/booking"; // Trả về trang chủ
+    private final BookingService bookingService;
+
+    // Lấy tất cả bookings
+    @GetMapping
+    public ResponseEntity<List<BookingDto>> getAllBookings() {
+        return ResponseEntity.ok(bookingService.getAllBookings());
     }
 
+    // Lấy booking theo userId
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<BookingDto>> getBookingsByUser(@PathVariable Long userId) {
+        return ResponseEntity.ok(bookingService.getBookingsByUser(userId));
+    }
+
+    // Tạo mới booking
+    @PostMapping
+    public ResponseEntity<BookingDto> createBooking(@RequestBody BookingDto bookingDto) {
+        return ResponseEntity.ok(bookingService.createBooking(bookingDto));
+    }
+
+    // Huỷ booking
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteBooking(@PathVariable Long id) {
+        bookingService.deleteBooking(id);
+        return ResponseEntity.noContent().build();
+    }
 }
