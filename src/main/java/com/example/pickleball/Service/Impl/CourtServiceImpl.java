@@ -13,57 +13,47 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class CourtServiceImpl implements CourtService {
 
     private final CourtRepository courtRepository;
     private final ModelMapper modelMapper;
 
-    public CourtServiceImpl(CourtRepository courtRepository, ModelMapper modelMapper) {
-        this.courtRepository = courtRepository;
-        this.modelMapper = modelMapper;
-    }
-
     @Override
-    public List<CourtDto> getAllCourts() {
-        List<Court> courts = courtRepository.findAll();
-        return courts.stream()
-                .map(court -> modelMapper.map(court, CourtDto.class))  // Chuyển Court thành CourtDto
+    public List<CourtDto> getAll() {
+        return courtRepository.findAll().stream()
+                .map(c -> modelMapper.map(c, CourtDto.class))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public CourtDto getCourtById(Long id) {
+    public CourtDto getById(Long id) {
         Court court = courtRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Court not found with id: " + id));
-        return modelMapper.map(court, CourtDto.class);  // Chuyển Court thành CourtDto
+                .orElseThrow(() -> new ResourceNotFoundException("Court not found"));
+        return modelMapper.map(court, CourtDto.class);
     }
 
     @Override
-    public CourtDto createCourt(CourtDto courtDto) {
-        Court court = modelMapper.map(courtDto, Court.class);  // Chuyển CourtDto thành Court
-        Court savedCourt = courtRepository.save(court);
-        return modelMapper.map(savedCourt, CourtDto.class);  // Chuyển lại thành CourtDto
+    public CourtDto create(CourtDto dto) {
+        Court court = modelMapper.map(dto, Court.class);
+        return modelMapper.map(courtRepository.save(court), CourtDto.class);
     }
 
     @Override
-    public CourtDto updateCourt(Long id, CourtDto courtDto) {
+    public CourtDto update(Long id, CourtDto dto) {
         Court court = courtRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Court not found with id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Court not found"));
 
-        court.setName(courtDto.getName());
-        court.setLocation(courtDto.getLocation());
-        court.setType(courtDto.getType());
-        court.setAvailable(courtDto.isAvailable());
-        court.setPricePerHour(courtDto.getPricePerHour());
+        court.setName(dto.getName());
+        court.setLocation(dto.getLocation());
+        court.setDescription(dto.getDescription());
+        court.setActive(dto.isActive());
 
-        Court updatedCourt = courtRepository.save(court);
-        return modelMapper.map(updatedCourt, CourtDto.class);  // Chuyển lại thành CourtDto
+        return modelMapper.map(courtRepository.save(court), CourtDto.class);
     }
 
     @Override
-    public void deleteCourt(Long id) {
-        Court court = courtRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Court not found with id: " + id));
-        courtRepository.delete(court);
+    public void delete(Long id) {
+        courtRepository.deleteById(id);
     }
 }

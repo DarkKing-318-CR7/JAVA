@@ -1,9 +1,8 @@
 package com.example.pickleball.Controller;
 
 import com.example.pickleball.model.dto.BookingDto;
-import com.example.pickleball.model.entity.Booking;
 import com.example.pickleball.Service.BookingService;
-import org.springframework.http.HttpStatus;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,39 +10,33 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/bookings")
+@RequiredArgsConstructor
 public class BookingController {
 
     private final BookingService bookingService;
 
-    public BookingController(BookingService bookingService) {
-        this.bookingService = bookingService;
-    }
-
+    // Lấy tất cả bookings
     @GetMapping
-    public List<Booking> getAllBookings() {
-        return bookingService.getAllBookings();
+    public ResponseEntity<List<BookingDto>> getAllBookings() {
+        return ResponseEntity.ok(bookingService.getAllBookings());
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Booking> getBookingById(@PathVariable Long id) {
-        return ResponseEntity.ok(bookingService.getBookingById(id));
+    // Lấy booking theo userId
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<BookingDto>> getBookingsByUser(@PathVariable Long userId) {
+        return ResponseEntity.ok(bookingService.getBookingsByUser(userId));
     }
 
+    // Tạo mới booking
     @PostMapping
-    public ResponseEntity<Booking> createBooking(@RequestBody BookingDto bookingDto) {
-        Booking booking = bookingService.createBooking(bookingDto);
-        return new ResponseEntity<>(booking, HttpStatus.CREATED);
+    public ResponseEntity<BookingDto> createBooking(@RequestBody BookingDto bookingDto) {
+        return ResponseEntity.ok(bookingService.createBooking(bookingDto));
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Booking> updateBooking(@PathVariable Long id, @RequestBody BookingDto bookingDto) {
-        Booking updatedBooking = bookingService.updateBooking(id, bookingDto);
-        return ResponseEntity.ok(updatedBooking);
-    }
-
+    // Huỷ booking
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> cancelBooking(@PathVariable Long id) {
-        bookingService.cancelBooking(id);
+    public ResponseEntity<Void> deleteBooking(@PathVariable Long id) {
+        bookingService.deleteBooking(id);
         return ResponseEntity.noContent().build();
     }
 }
