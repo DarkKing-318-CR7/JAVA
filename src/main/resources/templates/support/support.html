@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Hỗ trợ khách hàng - Pickleball Booking</title>
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/support.css" />
+</head>
+<body>
+<!-- Header -->
+<div id="header"></div>
+
+<div class="container">
+  <!-- Left Menu -->
+  <div id="left-menu"></div>
+
+  <!-- Main Content -->
+  <main class="support-container">
+    <h2>Liên hệ Hỗ trợ</h2>
+    <form id="support-form">
+      <label for="fullname">Họ và Tên:</label>
+      <input type="text" id="fullname" name="fullname" required />
+
+      <label for="email">Email liên hệ:</label>
+      <input type="email" id="email" name="email" required />
+
+      <label for="subject">Chủ đề:</label>
+      <input type="text" id="subject" name="subject" required />
+
+      <label for="message">Nội dung yêu cầu:</label>
+      <textarea id="message" name="message" rows="5" required></textarea>
+
+      <button type="submit" class="btn-primary">Gửi yêu cầu</button>
+    </form>
+    <div id="support-response"></div>
+  </main>
+</div>
+
+<!-- Footer -->
+<div id="footer"></div>
+
+<script src="/js/main.js"></script>
+<script src="/js/header.js"></script>
+<script src="/js/left-menu.js"></script>
+<script src="/js/support.js"></script>
+</body>
+</html>

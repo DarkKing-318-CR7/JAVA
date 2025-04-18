@@ -1,73 +1,80 @@
 package com.example.pickleball.Service.Impl;
 
+import com.example.pickleball.Repositories.UserRepository;
+import com.example.pickleball.exception.BadRequestException;
+import com.example.pickleball.exception.ResourceNotFoundException;
 import com.example.pickleball.model.dto.BookingDto;
 import com.example.pickleball.model.entity.Booking;
+import com.example.pickleball.model.entity.BookingStatus;
 import com.example.pickleball.model.entity.Court;
 import com.example.pickleball.Repositories.BookingRepository;
 import com.example.pickleball.Repositories.CourtRepository;
 import com.example.pickleball.Service.BookingService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class BookingServiceImpl implements BookingService {
 
     private final BookingRepository bookingRepository;
+    private final UserRepository userRepository;
     private final CourtRepository courtRepository;
 
-    public BookingServiceImpl(BookingRepository bookingRepository, CourtRepository courtRepository) {
-        this.bookingRepository = bookingRepository;
-        this.courtRepository = courtRepository;
+    @Override
+    public List<BookingDto> getAllBookings() {
+        return bookingRepository.findAll()
+                .stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public List<Booking> getAllBookings() {
-        return bookingRepository.findAll();
+    public List<BookingDto> getBookingsByUser(Long userId) {
+        return bookingRepository.findByUserId(userId)
+                .stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public Booking getBookingById(Long id) {
-        return bookingRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Booking not found"));
-    }
+    public BookingDto createBooking(BookingDto bookingDto) {
+        boolean exists = bookingRepository.existsByCourtIdAndDateAndTime(
+                bookingDto.getCourtId(), bookingDto.getDate(), bookingDto.getTime());
 
-    @Override
-    public Booking createBooking(BookingDto bookingDto) {
-        Court court = courtRepository.findById(bookingDto.getCourtId())
-                .orElseThrow(() -> new RuntimeException("Court not found"));
+        if (exists) {
+            throw new BadRequestException("Court is already booked at that time.");
+        }
 
         Booking booking = new Booking();
-        booking.setCourt(court);
-        booking.setCustomerName(bookingDto.getCustomerName());
-        booking.setCustomerEmail(bookingDto.getCustomerEmail());
-        booking.setBookingDate(bookingDto.getBookingDate());
-        booking.setStartTime(bookingDto.getStartTime());
-        booking.setEndTime(bookingDto.getEndTime());
-        booking.setConfirmed(false);  // Default is not confirmed
+        booking.setDate(bookingDto.getDate());
+        booking.setTime(bookingDto.getTime());
+        booking.setCourt(courtRepository.findById(bookingDto.getCourtId()).orElseThrow(
+                () -> new ResourceNotFoundException("Court not found")));
+        booking.setUser(userRepository.findById(bookingDto.getUserId()).orElseThrow(
+                () -> new ResourceNotFoundException("User not found")));
+        booking.setStatus(BookingStatus.PENDING);
 
-        return bookingRepository.save(booking);
+        return convertToDto(bookingRepository.save(booking));
     }
 
+
     @Override
-    public Booking updateBooking(Long id, BookingDto bookingDto) {
-        Booking booking = getBookingById(id);
-        Court court = courtRepository.findById(bookingDto.getCourtId())
-                .orElseThrow(() -> new RuntimeException("Court not found"));
-
-        booking.setCourt(court);
-        booking.setCustomerName(bookingDto.getCustomerName());
-        booking.setCustomerEmail(bookingDto.getCustomerEmail());
-        booking.setBookingDate(bookingDto.getBookingDate());
-        booking.setStartTime(bookingDto.getStartTime());
-        booking.setEndTime(bookingDto.getEndTime());
-
-        return bookingRepository.save(booking);
+    public void deleteBooking(Long id) {
+        bookingRepository.deleteById(id);
     }
 
-    @Override
-    public void cancelBooking(Long id) {
-        Booking booking = getBookingById(id);
-        bookingRepository.delete(booking);
+    private BookingDto convertToDto(Booking booking) {
+        BookingDto dto = new BookingDto();
+        dto.setId(booking.getId());
+        dto.setDate(booking.getDate());
+        dto.setTime(booking.getTime());
+        dto.setCourtId(booking.getCourt().getId());
+        dto.setUserId(booking.getUser().getId());
+        dto.setStatus(booking.getStatus());
+        return dto;
     }
 }
