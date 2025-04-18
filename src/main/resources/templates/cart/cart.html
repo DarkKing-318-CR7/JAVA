@@ -1,0 +1,56 @@
+<!-- html/cart.html -->
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <title>Giỏ hàng - Pickleball Booking</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/header.css" />
+    <link rel="stylesheet" href="/css/footer.css" />
+    <link rel="stylesheet" href="/css/left-menu.css" />
+    <link rel="stylesheet" href="/css/cart.css" />
+</head>
+<body>
+<!-- Header -->
+<div id="header"></div>
+
+<div class="container">
+    <!-- Left Menu -->
+    <div id="left-menu"></div>
+
+    <!-- Main Content -->
+    <main id="main-content">
+        <h1>Giỏ hàng của bạn</h1>
+
+        <table class="cart-table">
+            <thead>
+            <tr>
+                <th>Sản phẩm</th>
+                <th>Giá</th>
+                <th>Số lượng</th>
+                <th>Tổng</th>
+                <th>Xóa</th>
+            </tr>
+            </thead>
+            <tbody id="cart-items">
+            <!-- JS sẽ render sản phẩm ở đây -->
+            </tbody>
+        </table>
+
+        <div class="cart-summary">
+            <span>Tổng tiền: </span>
+            <strong id="cart-total">0đ</strong>
+            <a href="/html/checkout.html" class="btn-primary">Thanh toán</a>
+        </div>
+    </main>
+</div>
+
+<!-- Footer -->
+<div id="footer"></div>
+
+<script src="/js/main.js"></script>
+<script src="/js/header.js"></script>
+<script src="/js/left-menu.js"></script>
+<script src="/js/cart.js"></script>
+</body>
+</html>

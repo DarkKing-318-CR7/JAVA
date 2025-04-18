@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <title>Lịch sử đơn hàng - Pickleball Booking</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/order-history.css" />
+</head>
+<body>
+<!-- Header -->
+<div id="header"></div>
+
+<div class="container">
+    <!-- Left Menu -->
+    <div id="left-menu"></div>
+
+    <!-- Main Content -->
+    <main class="order-history-container">
+        <h2>Lịch sử đơn hàng</h2>
+        <table class="order-table">
+            <thead>
+            <tr>
+                <th>Mã đơn</th>
+                <th>Ngày đặt</th>
+                <th>Sản phẩm</th>
+                <th>Tổng tiền</th>
+                <th>Trạng thái</th>
+            </tr>
+            </thead>
+            <tbody id="order-history-body">
+            <!-- Dữ liệu sẽ được render từ JS -->
+            </tbody>
+        </table>
+    </main>
+</div>
+
+<!-- Footer -->
+<div id="footer"></div>
+
+<script src="/js/main.js"></script>
+<script src="/js/header.js"></script>
+<script src="/js/left-menu.js"></script>
+<script src="/js/order-history.js"></script>
+</body>
+</html>
