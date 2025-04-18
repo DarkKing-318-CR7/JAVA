@@ -1,0 +1,67 @@
+.user-filters {
+    margin: 1rem 0;
+}
+
+#search-user {
+    padding: 8px 14px;
+    width: 300px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+.user-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+.user-table th,
+.user-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+}
+
+.status.active {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-weight: bold;
+}
+
+.status.disabled {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-weight: bold;
+}
+
+.btn-view,
+.btn-disable {
+    padding: 6px 12px;
+    margin: 0 4px;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-view {
+    background-color: #17a2b8;
+    color: white;
+}
+
+.btn-view:hover {
+    background-color: #138496;
+}
+
+.btn-disable {
+    background-color: #dc3545;
+    color: white;
+}
+
+.btn-disable:hover {
+    background-color: #c82333;
+}

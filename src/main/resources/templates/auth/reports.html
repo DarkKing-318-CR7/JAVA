@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <title>Báo cáo hệ thống - Admin</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/header.css" />
+    <link rel="stylesheet" href="/css/footer.css" />
+    <link rel="stylesheet" href="/css/left-menu.css" />
+    <link rel="stylesheet" href="/css/admin-reports.css" />
+</head>
+<body>
+<!-- Header -->
+<div id="header"></div>
+
+<div class="container">
+    <!-- Left Menu -->
+    <div id="left-menu"></div>
+
+    <!-- Main Content -->
+    <main id="main-content">
+        <h1>Báo cáo thống kê</h1>
+
+        <div class="report-filters">
+            <label>Chọn khoảng thời gian:</label>
+            <input type="date" id="from-date" /> đến
+            <input type="date" id="to-date" />
+            <button id="generate-report">Tạo báo cáo</button>
+        </div>
+
+        <div class="report-summary">
+            <div class="report-box">
+                <h3>Tổng số đơn hàng</h3>
+                <p id="total-orders">--</p>
+            </div>
+            <div class="report-box">
+                <h3>Doanh thu</h3>
+                <p id="total-revenue">--</p>
+            </div>
+            <div class="report-box">
+                <h3>Người dùng mới</h3>
+                <p id="new-users">--</p>
+            </div>
+        </div>
+
+        <div class="report-chart">
+            <h2>Biểu đồ đơn hàng theo ngày</h2>
+            <canvas id="orderChart"></canvas>
+        </div>
+    </main>
+</div>
+
+<!-- Footer -->
+<div id="footer"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/header.js"></script>
+<script src="/js/left-menu.js"></script>
+<script src="/js/admin-reports.js"></script>
+</body>
+</html>
