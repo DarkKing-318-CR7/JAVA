@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/main-layout}">
+<head>
+    <title>Đăng Ký Tài Khoản</title>
+    <style>
+        .register-container { max-width: 500px; margin: 50px auto; }
+    </style>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="register-container card p-4 shadow-sm">
+        <h2 class="text-center mb-4">Đăng Ký Tài Khoản Mới</h2>
+
+        <div th:if="${successMessage}" class="alert alert-success" role="alert" th:text="${successMessage}"></div>
+        <div th:if="${errorMessage}" class="alert alert-danger" role="alert" th:text="${errorMessage}"></div>
+
+        <form th:action="@{/register}" method="post" th:object="${userDto}"> <div class="mb-3">
+            <label for="fullName" class="form-label">Họ và Tên</label>
+            <input type="text" class="form-control" id="fullName" th:field="*{fullName}" required>
+            <div class="text-danger" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></div>
+        </div>
+            <div class="mb-3">
+                <label for="username" class="form-label">Tên đăng nhập</label>
+                <input type="text" class="form-control" id="username" th:field="*{username}" required>
+                <div class="text-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" th:field="*{email}" required>
+                <div class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Mật khẩu</label>
+                <input type="password" class="form-control" id="password" th:field="*{password}" required>
+                <div class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+            </div>
+            <div class="mb-3">
+                <label for="confirmPassword" class="form-label">Xác nhận Mật khẩu</label>
+                <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required> <div class="text-danger" th:if="${passwordMismatchError}" th:text="${passwordMismatchError}"></div>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">Đăng Ký</button>
+        </form>
+        <hr>
+        <div class="text-center">
+            <p>Đã có tài khoản? <a th:href="@{/login}">Đăng nhập</a></p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

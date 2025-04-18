@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<footer class="bg-light text-center text-lg-start mt-auto py-3 main-footer" th:fragment="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+                <h5 class="text-uppercase">Sân Cầu Lông ABC</h5>
+                <p>
+                    Địa chỉ: 123 Đường ABC, Quận XYZ, Thành phố HCM <br>
+                    Điện thoại: 0123 456 789 <br>
+                    Email: info@sancaulongabc.com
+                </p>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                <h5 class="text-uppercase">Liên kết</h5>
+                <ul class="list-unstyled mb-0">
+                    <li><a href="#!" class="text-dark">Về chúng tôi</a></li>
+                    <li><a th:href="@{/support/create-ticket}" class="text-dark">Hỗ trợ</a></li>
+                    <li><a href="#!" class="text-dark">Chính sách</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                <h5 class="text-uppercase">Mạng xã hội</h5>
+                <a href="#" class="text-dark me-2"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="text-dark me-2"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </div>
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+        © <span th:text="${#dates.year(#dates.createNow())}">2025</span> Bản quyền thuộc về:
+        <a class="text-dark" href="#">sancaulongabc.com</a>
+    </div>
+</footer>
+</body>
+</html>

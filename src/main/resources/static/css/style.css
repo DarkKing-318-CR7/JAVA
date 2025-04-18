@@ -1,0 +1,81 @@
+/* --- General Styles --- */
+body {
+    padding-top: 70px; /* Để nội dung không bị che bởi fixed navbar */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main.container {
+    flex: 1; /* Đẩy footer xuống dưới */
+}
+
+footer.main-footer { /* Thêm class main-footer vào fragment footer */
+    margin-top: 40px;
+    padding: 20px 0;
+    background-color: #f8f9fa;
+    width: 100%;
+}
+
+/* --- Shop Styles --- */
+.product-card img.card-img-top {
+    height: 200px;
+    object-fit: contain; /* Chứa ảnh tốt hơn thay vì crop */
+    padding: 10px;
+}
+
+.product-card:hover {
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+    transition: box-shadow 0.2s ease-in-out;
+}
+
+/* --- Auth Styles --- */
+.login-container {
+    max-width: 400px;
+    margin: 50px auto;
+}
+
+.register-container {
+    max-width: 500px;
+    margin: 50px auto;
+}
+
+
+/* --- Error Page Styles --- */
+.error-container {
+    text-align: center;
+    margin-top: 50px;
+    padding: 30px;
+}
+
+.error-container .error-code {
+    font-size: 6rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.error-container .error-message {
+    font-size: 1.5rem;
+    color: #6c757d;
+    margin-bottom: 1.5rem;
+}
+
+/* Specific error codes */
+.error-container.error-403 .error-code { color: #dc3545; } /* Red */
+.error-container.error-404 .error-code { color: #ffc107; } /* Yellow */
+.error-container.error-500 .error-code { color: #6f42c1; } /* Purple */
+
+.error-details {
+    margin-top: 2rem;
+    text-align: left;
+    background-color: #f8f9fa;
+    padding: 1rem;
+    border: 1px solid #dee2e6;
+    border-radius: 0.25rem;
+    max-height: 300px;
+    overflow-y: auto;
+    font-family: monospace;
+    font-size: 0.8rem;
+    white-space: pre-wrap; /* Wrap long lines */
+    word-break: break-all;
+}
