@@ -1,69 +1,74 @@
-/* static/css/homepage.css */
+/* homepage.css */
 
-/* Phần Hero */
+/* Hero section */
 .hero {
-    background: linear-gradient(135deg, #00c6ff, #0072ff);
-    color: white;
-    padding: 60px 30px;
+    padding: 40px;
+    background-color: #f3f4f6;
     text-align: center;
-    border-radius: 12px;
-    margin-bottom: 40px;
 }
 
 .hero h1 {
-    font-size: 2.8rem;
-    margin-bottom: 20px;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #1f2937;
+    margin-bottom: 16px;
 }
 
 .hero p {
-    font-size: 1.2rem;
-    margin-bottom: 30px;
+    font-size: 1rem;
+    color: #4b5563;
+    margin-bottom: 24px;
 }
 
-.btn-primary {
-    display: inline-block;
-    background-color: #ff5722;
-    color: #fff;
-    padding: 12px 24px;
-    border-radius: 6px;
-    font-weight: bold;
+.hero .btn-primary {
+    padding: 10px 20px;
+    background-color: #2563eb;
+    color: white;
     text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
     transition: background-color 0.3s ease;
 }
 
-.btn-primary:hover {
-    background-color: #e64a19;
+.hero .btn-primary:hover {
+    background-color: #1d4ed8;
 }
 
-/* Phần tính năng nổi bật */
+/* Features section */
 .features {
     display: flex;
-    justify-content: space-around;
-    gap: 20px;
-    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 40px;
+    background-color: #fff;
+    gap: 30px;
 }
 
 .feature-box {
-    background: #f8f8f8;
-    border-radius: 10px;
-    padding: 20px;
     flex: 1;
-    min-width: 280px;
-    text-align: center;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-    transition: transform 0.2s ease;
-}
-
-.feature-box:hover {
-    transform: translateY(-5px);
+    background-color: #f9fafb;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 8px rgba(0,0,0,0.05);
 }
 
 .feature-box h3 {
-    color: #333;
+    font-size: 1.2rem;
     margin-bottom: 10px;
+    color: #111827;
 }
 
 .feature-box p {
-    color: #666;
     font-size: 0.95rem;
+    color: #4b5563;
+}
+
+/* Main layout container (optional if missing layout) */
+.container {
+    display: flex;
+}
+
+#main-content {
+    flex: 1;
+    padding: 20px;
+    background-color: #f9fafb;
 }
