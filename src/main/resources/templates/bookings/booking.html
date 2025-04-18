@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Đặt Sân - Pickleball Booking</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/booking.css">
+</head>
+<body>
+<!-- Header -->
+<div id="header"></div>
+
+<div class="container">
+    <!-- Left Menu -->
+    <div id="left-menu"></div>
+
+    <!-- Booking Form -->
+    <main class="booking-container">
+        <h2>Đặt sân chơi Pickleball</h2>
+        <form id="booking-form">
+            <label for="court">Chọn sân:</label>
+            <select name="court" id="court" required>
+                <option value="">-- Chọn sân --</option>
+                <option value="court1">Sân 1 - Trung tâm Thể thao</option>
+                <option value="court2">Sân 2 - Quận 7</option>
+                <option value="court3">Sân 3 - Bình Thạnh</option>
+            </select>
+
+            <label for="date">Chọn ngày:</label>
+            <input type="date" name="date" id="date" required>
+
+            <label for="time">Chọn giờ:</label>
+            <input type="time" name="time" id="time" required>
+
+            <label for="duration">Thời lượng (giờ):</label>
+            <select name="duration" id="duration" required>
+                <option value="1">1 giờ</option>
+                <option value="2">2 giờ</option>
+                <option value="3">3 giờ</option>
+            </select>
+
+            <button type="submit">Đặt sân</button>
+        </form>
+    </main>
+</div>
+
+<!-- Footer -->
+<div id="footer"></div>
+
+<script src="/js/main.js"></script>
+<script src="/js/header.js"></script>
+<script src="/js/left-menu.js"></script>
+<script src="/js/booking.js"></script>
+</body>
+</html>

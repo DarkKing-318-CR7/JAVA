@@ -1,0 +1,31 @@
+.order-history-container {
+    padding: 30px;
+    background-color: #fdfdfd;
+}
+
+.order-history-container h2 {
+    margin-bottom: 25px;
+}
+
+.order-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
+}
+
+.order-table th, .order-table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #eee;
+    text-align: left;
+}
+
+.order-table th {
+    background-color: #f1f1f1;
+}
+
+.order-table tr:last-child td {
+    border-bottom: none;
+}

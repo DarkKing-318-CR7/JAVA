@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <title>Thanh toán - Pickleball Booking</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/checkout.css" />
+</head>
+<body>
+<!-- Header -->
+<div id="header"></div>
+
+<div class="container">
+    <!-- Left Menu -->
+    <div id="left-menu"></div>
+
+    <!-- Main Content -->
+    <main class="checkout-container">
+        <h2>Xác nhận đơn hàng</h2>
+
+        <div class="order-summary">
+            <h3>Thông tin đơn hàng</h3>
+            <ul>
+                <li><strong>Sân đã chọn:</strong> Sân số 3 - Quận 7</li>
+                <li><strong>Thời gian:</strong> 18:00 - 19:30, ngày 20/04/2025</li>
+                <li><strong>Dịch vụ thêm:</strong> 2 chai nước, 1 cây vợt</li>
+            </ul>
+            <p class="total">Tổng cộng: <strong>250.000đ</strong></p>
+        </div>
+
+        <div class="payment-form">
+            <h3>Thông tin thanh toán</h3>
+            <form id="checkout-form">
+                <input type="text" name="name" placeholder="Họ và tên" required />
+                <input type="text" name="card" placeholder="Số thẻ (VD: 1234 5678 9012 3456)" required />
+                <input type="text" name="expiry" placeholder="Hết hạn (MM/YY)" required />
+                <input type="text" name="cvv" placeholder="CVV" required />
+                <button type="submit">Xác nhận & Thanh toán</button>
+            </form>
+        </div>
+    </main>
+</div>
+
+<!-- Footer -->
+<div id="footer"></div>
+
+<script src="/js/main.js"></script>
+<script src="/js/header.js"></script>
+<script src="/js/left-menu.js"></script>
+<script src="/js/checkout.js"></script>
+</body>
+</html>

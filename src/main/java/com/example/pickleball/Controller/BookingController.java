@@ -10,40 +10,45 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/bookings")
 public class BookingController {
+//
+//    private final BookingService bookingService;
+//
+//    public BookingController(BookingService bookingService) {
+//        this.bookingService = bookingService;
+//    }
+//
+//    @GetMapping
+//    public List<Booking> getAllBookings() {
+//        return bookingService.getAllBookings();
+//    }
+//
+//    @GetMapping("/{id}")
+//    public ResponseEntity<Booking> getBookingById(@PathVariable Long id) {
+//        return ResponseEntity.ok(bookingService.getBookingById(id));
+//    }
+//
+//    @PostMapping
+//    public ResponseEntity<Booking> createBooking(@RequestBody BookingDto bookingDto) {
+//        Booking booking = bookingService.createBooking(bookingDto);
+//        return new ResponseEntity<>(booking, HttpStatus.CREATED);
+//    }
+//
+//    @PutMapping("/{id}")
+//    public ResponseEntity<Booking> updateBooking(@PathVariable Long id, @RequestBody BookingDto bookingDto) {
+//        Booking updatedBooking = bookingService.updateBooking(id, bookingDto);
+//        return ResponseEntity.ok(updatedBooking);
+//    }
+//
+//    @DeleteMapping("/{id}")
+//    public ResponseEntity<Void> cancelBooking(@PathVariable Long id) {
+//        bookingService.cancelBooking(id);
+//        return ResponseEntity.noContent().build();
+//    }
 
-    private final BookingService bookingService;
-
-    public BookingController(BookingService bookingService) {
-        this.bookingService = bookingService;
+    @GetMapping("/booking")
+    public String booking() {
+        return "bookings/booking"; // Trả về trang chủ
     }
 
-    @GetMapping
-    public List<Booking> getAllBookings() {
-        return bookingService.getAllBookings();
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<Booking> getBookingById(@PathVariable Long id) {
-        return ResponseEntity.ok(bookingService.getBookingById(id));
-    }
-
-    @PostMapping
-    public ResponseEntity<Booking> createBooking(@RequestBody BookingDto bookingDto) {
-        Booking booking = bookingService.createBooking(bookingDto);
-        return new ResponseEntity<>(booking, HttpStatus.CREATED);
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<Booking> updateBooking(@PathVariable Long id, @RequestBody BookingDto bookingDto) {
-        Booking updatedBooking = bookingService.updateBooking(id, bookingDto);
-        return ResponseEntity.ok(updatedBooking);
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> cancelBooking(@PathVariable Long id) {
-        bookingService.cancelBooking(id);
-        return ResponseEntity.noContent().build();
-    }
 }

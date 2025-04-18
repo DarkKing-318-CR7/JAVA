@@ -1,0 +1,50 @@
+.support-container {
+    padding: 30px;
+    background-color: #fff;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.support-container h2 {
+    margin-bottom: 20px;
+}
+
+#support-form {
+    display: flex;
+    flex-direction: column;
+}
+
+#support-form label {
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+#support-form input,
+#support-form textarea {
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+#support-form button {
+    margin-top: 20px;
+    padding: 12px;
+    font-size: 16px;
+    border: none;
+    background-color: #0073e6;
+    color: #fff;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+#support-form button:hover {
+    background-color: #005bb5;
+}
+
+#support-response {
+    margin-top: 20px;
+    font-style: italic;
+    color: green;
+}
