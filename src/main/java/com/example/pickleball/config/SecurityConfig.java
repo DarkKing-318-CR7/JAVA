@@ -15,22 +15,24 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable()) // chuẩn mới
+                .csrf(csrf -> csrf.disable()) // Tắt CSRF để tránh lỗi với form login thủ công
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
-                                "/", "/home", "/login", "/register",
+                                "/", "/index", "/login", "/register",
                                 "/courts/list", "/shop/products",
                                 "/css/**", "/js/**", "/images/**"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
-                        .loginPage("/login")
-                        .defaultSuccessUrl("/", true)
+                        .loginPage("/login")                // Trang login tùy chỉnh
+                        .loginProcessingUrl("/login")       // URL mà Spring Security sẽ xử lý POST login
+                        .defaultSuccessUrl("/", true)       // Chuyển hướng sau khi login thành công
                         .permitAll()
                 )
                 .logout(logout -> logout
-                        .logoutSuccessUrl("/login?logout")
+                        .logoutUrl("/logout")               // URL logout
+                        .logoutSuccessUrl("/login?logout")  // Sau khi logout thì chuyển về /login
                         .permitAll()
                 );
 
@@ -39,6 +41,6 @@ public class SecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+        return new BCryptPasswordEncoder(); // dùng để mã hóa mật khẩu
     }
 }

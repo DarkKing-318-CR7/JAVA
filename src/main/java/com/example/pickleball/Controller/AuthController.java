@@ -8,6 +8,12 @@ public class AuthController {
 
     @GetMapping("/login")
     public String loginPage() {
-        return "auth/login"; // login.html nằm trong templates/auth/
+        return "auth/login"; // phải ghi rõ đường dẫn từ templates/
+    }
+
+    @GetMapping("/register")
+    public String registerPage() {
+        return "auth/register";
     }
 }
+
