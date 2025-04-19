@@ -1,19 +1,22 @@
 package com.example.pickleball.Service.Impl;
 
-import com.example.pickleball.Repositories.UserRepository;
-import com.example.pickleball.exception.BadRequestException;
-import com.example.pickleball.exception.ResourceNotFoundException;
 import com.example.pickleball.model.dto.BookingDto;
 import com.example.pickleball.model.entity.Booking;
 import com.example.pickleball.model.entity.BookingStatus;
 import com.example.pickleball.model.entity.Court;
+import com.example.pickleball.model.entity.User;
 import com.example.pickleball.Repositories.BookingRepository;
 import com.example.pickleball.Repositories.CourtRepository;
+import com.example.pickleball.Repositories.UserRepository;
 import com.example.pickleball.Service.BookingService;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -21,60 +24,88 @@ import java.util.stream.Collectors;
 public class BookingServiceImpl implements BookingService {
 
     private final BookingRepository bookingRepository;
-    private final UserRepository userRepository;
     private final CourtRepository courtRepository;
+    private final UserRepository userRepository;
+    private final ModelMapper modelMapper;
+
+    public Long getUserIdByUsername(String username) {
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Không tìm thấy user"))
+                .getId();
+    }
+
+
+    @Override
+    public void createBooking(BookingDto dto) {
+        Booking booking = new Booking();
+        booking.setDate(dto.getDate());
+        booking.setTime(dto.getTime());
+        booking.setNotes(dto.getNotes());
+        booking.setStatus(BookingStatus.PENDING);
+
+        Court court = courtRepository.findById(dto.getCourtId()).orElseThrow();
+        User user = userRepository.findById(dto.getUserId()).orElseThrow();
+
+        booking.setCourt(court);
+        booking.setUser(user);
+
+        bookingRepository.save(booking);
+    }
 
     @Override
     public List<BookingDto> getAllBookings() {
-        return bookingRepository.findAll()
-                .stream()
-                .map(this::convertToDto)
+        return bookingRepository.findAll().stream()
+                .map(this::mapToDto)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<BookingDto> getBookingsByUser(Long userId) {
-        return bookingRepository.findByUserId(userId)
-                .stream()
-                .map(this::convertToDto)
-                .collect(Collectors.toList());
+    public BookingDto getBookingById(Long id) {
+        return bookingRepository.findById(id)
+                .map(this::mapToDto)
+                .orElseThrow();
     }
 
     @Override
-    public BookingDto createBooking(BookingDto bookingDto) {
-        boolean exists = bookingRepository.existsByCourtIdAndDateAndTime(
-                bookingDto.getCourtId(), bookingDto.getDate(), bookingDto.getTime());
+    public void updateBooking(Long id, BookingDto dto) {
+        Booking booking = bookingRepository.findById(id).orElseThrow();
 
-        if (exists) {
-            throw new BadRequestException("Court is already booked at that time.");
+        booking.setDate(dto.getDate());
+        booking.setTime(dto.getTime());
+        booking.setNotes(dto.getNotes());
+        booking.setStatus(BookingStatus.valueOf(dto.getStatus()));
+
+        if (dto.getCourtId() != null) {
+            booking.setCourt(courtRepository.findById(dto.getCourtId()).orElseThrow());
         }
 
-        Booking booking = new Booking();
-        booking.setDate(bookingDto.getDate());
-        booking.setTime(bookingDto.getTime());
-        booking.setCourt(courtRepository.findById(bookingDto.getCourtId()).orElseThrow(
-                () -> new ResourceNotFoundException("Court not found")));
-        booking.setUser(userRepository.findById(bookingDto.getUserId()).orElseThrow(
-                () -> new ResourceNotFoundException("User not found")));
-        booking.setStatus(BookingStatus.PENDING);
-
-        return convertToDto(bookingRepository.save(booking));
+        bookingRepository.save(booking);
     }
-
 
     @Override
     public void deleteBooking(Long id) {
         bookingRepository.deleteById(id);
     }
 
-    private BookingDto convertToDto(Booking booking) {
-        BookingDto dto = new BookingDto();
-        dto.setId(booking.getId());
-        dto.setDate(booking.getDate());
-        dto.setTime(booking.getTime());
-        dto.setCourtId(booking.getCourt().getId());
+    @Override
+    public List<BookingDto> getBookingsByUserId(Long userId) {
+        return bookingRepository.findByUserId(userId).stream()
+                .map(this::mapToDto)
+                .collect(Collectors.toList());
+    }
+
+    private BookingDto mapToDto(Booking booking) {
+        BookingDto dto = modelMapper.map(booking, BookingDto.class);
         dto.setUserId(booking.getUser().getId());
-        dto.setStatus(booking.getStatus());
+        dto.setCourtId(booking.getCourt().getId());
+        dto.setCourtName(booking.getCourt().getName());
+        dto.setStatus(booking.getStatus().name());
         return dto;
     }
+
+    @Override
+    public List<Booking> getBookingsByUser(Long userId) {
+        return bookingRepository.findByUserId(userId);
+    }
+
 }

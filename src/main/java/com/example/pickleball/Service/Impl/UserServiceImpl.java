@@ -10,6 +10,7 @@ import com.example.pickleball.Service.UserService;
 import com.example.pickleball.util.MapperUtils;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +23,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto register(RegisterRequest request) {
-        if (userRepository.existsByusername(request.getUsername())) {
+        if (userRepository.existsByUsername(request.getUsername())) {
             throw new BadRequestException("username already exists");
         }
 
@@ -47,5 +48,12 @@ public class UserServiceImpl implements UserService {
 
         return MapperUtils.mapToUserDto(user);
     }
+    @Override
+    public Long getUserIdByUsername(String username) {
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Không tìm thấy người dùng: " + username))
+                .getId();
+    }
+
 }
 

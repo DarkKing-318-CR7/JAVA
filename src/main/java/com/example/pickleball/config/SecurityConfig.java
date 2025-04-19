@@ -1,7 +1,9 @@
 package com.example.pickleball.config;
 
+import com.example.pickleball.Service.CustomUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
@@ -19,26 +21,25 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable()) // Tắt CSRF để tránh lỗi với form login thủ công
+                .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
-                                "/", "/index", "/login", "/register","/booking",
-                                "/courts/list", "/shop/products",
+                                "/", "/index", "/login", "/register",
                                 "/css/**", "/js/**", "/images/**"
                         ).permitAll()
+                        .requestMatchers("/bookings/**").authenticated()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
-                        .loginProcessingUrl("/login")
-                        .defaultSuccessUrl("/", true)
-                        .failureUrl("/login?error") // ✅ thêm dòng này để khi đăng nhập sai thì redirect kèm lỗi
+                        .loginProcessingUrl("/login") // form action="/login"
+                        .defaultSuccessUrl("/", false) // sau khi login thành công
+                        .failureUrl("/login?error") // login sai thì quay lại login với error
                         .permitAll()
                 )
-
                 .logout(logout -> logout
-                        .logoutUrl("/logout")               // URL logout
-                        .logoutSuccessUrl("/login?logout")  // Sau khi logout thì chuyển về /login
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/login?logout")
                         .permitAll()
                 );
 
@@ -47,17 +48,11 @@ public class SecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(); // dùng để mã hóa mật khẩu
+        return new BCryptPasswordEncoder();
     }
 
     @Bean
-    public UserDetailsService userDetailsService(PasswordEncoder encoder) {
-        UserDetails user = User.builder()
-                .username("admin")
-                .password(encoder.encode("123")) // Mã hóa mật khẩu bằng BCrypt
-                .roles("USER")
-                .build();
-        return new InMemoryUserDetailsManager(user);
+    public UserDetailsService userDetailsService() {
+        return new CustomUserDetailsService(); // ✅ gọi class bạn mới tạo
     }
-
 }

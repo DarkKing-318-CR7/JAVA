@@ -1,55 +1,44 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/master}">
 <head>
     <meta charset="UTF-8">
-    <title>Đặt Sân - Pickleball Booking</title>
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/booking.css">
+    <title>Danh sách đặt sân - Pickleball Booking</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/booking.css}">
 </head>
 <body>
-<!-- Header -->
-<div id="header"></div>
+<div layout:fragment="content">
+    <div class="container mt-5">
+        <h2 class="mb-4">Tất cả các lượt đặt sân</h2>
 
-<div class="container">
-    <!-- Left Menu -->
-    <div id="left-menu"></div>
-
-    <!-- Booking Form -->
-    <main class="booking-container">
-        <h2>Đặt sân chơi Pickleball</h2>
-        <form id="booking-form">
-            <label for="court">Chọn sân:</label>
-            <select name="court" id="court" required>
-                <option value="">-- Chọn sân --</option>
-                <option value="court1">Sân 1 - Trung tâm Thể thao</option>
-                <option value="court2">Sân 2 - Quận 7</option>
-                <option value="court3">Sân 3 - Bình Thạnh</option>
-            </select>
-
-            <label for="date">Chọn ngày:</label>
-            <input type="date" name="date" id="date" required>
-
-            <label for="time">Chọn giờ:</label>
-            <input type="time" name="time" id="time" required>
-
-            <label for="duration">Thời lượng (giờ):</label>
-            <select name="duration" id="duration" required>
-                <option value="1">1 giờ</option>
-                <option value="2">2 giờ</option>
-                <option value="3">3 giờ</option>
-            </select>
-
-            <button type="submit">Đặt sân</button>
-        </form>
-    </main>
+        <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+            <tr>
+                <th>STT</th>
+                <th>Tên người đặt</th>
+                <th>Sân</th>
+                <th>Ngày</th>
+                <th>Giờ bắt đầu</th>
+                <th>Thời lượng (giờ)</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="booking, iterStat : ${bookings}">
+                <td th:text="${iterStat.count}">1</td>
+                <td th:text="${booking.user != null ? booking.user.username : 'Ẩn'}">admin</td>
+                <td th:text="${booking.court != null ? booking.court.name : 'N/A'}">Sân 1</td>
+                <td th:text="${booking.date}">2025-04-20</td>
+                <td th:text="${booking.startTime}">08:00</td>
+                <td th:text="${booking.duration}">2</td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(bookings)}">
+                <td colspan="6" class="text-center">Không có lượt đặt sân nào.</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
-
-<!-- Footer -->
-<div id="footer"></div>
-
-<script src="/js/main.js"></script>
-<script src="/js/header.js"></script>
-<script src="/js/left-menu.js"></script>
-<script src="/js/booking.js"></script>
 </body>
 </html>

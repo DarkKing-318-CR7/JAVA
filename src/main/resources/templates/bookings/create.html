@@ -1,94 +1,43 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/main-layout}">
+      layout:decorate="~{layout/master}">
 <head>
-  <title>Đặt Sân Cầu Lông</title>
+  <meta charset="UTF-8">
+  <title>Đặt Sân - Pickleball Booking</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+  <link rel="stylesheet" th:href="@{/css/booking.css}">
 </head>
 <body>
 <div layout:fragment="content">
-  <h2 class="mb-4">Đặt Sân</h2>
+  <main class="booking-container">
+    <h2>Đặt sân chơi Pickleball</h2>
 
-  <div class="row">
-    <div class="col-md-7">
-      <h4>Chọn Sân, Ngày và Giờ</h4>
-      <form th:action="@{/bookings/create}" th:object="${bookingRequest}" method="post" id="bookingForm">
-        <div class="mb-3">
-          <label for="court" class="form-label">Chọn Sân <span class="text-danger">*</span></label>
-          <select id="court" class="form-select" th:field="*{courtId}" required>
-            <option value="">-- Chọn sân --</option>
-            <option th:each="court : ${availableCourts}"
-                    th:value="${court.id}"
-                    th:text="${court.name + ' (' + #numbers.formatDecimal(court.pricePerHour, 0, 'COMMA', 0, 'POINT') + ' VNĐ/h)'}"
-                    th:selected="${court.id == selectedCourtId}">
-            </option>
-          </select>
-          <div class="text-danger validation-error" th:if="${#fields.hasErrors('courtId')}" th:errors="*{courtId}"></div>
-        </div>
+    <form th:action="@{/bookings}" th:object="${booking}" method="post">
+      <label for="court">Chọn sân:</label>
+      <input type="text" id="court" th:field="*{courtName}" required>
 
-        <div class="mb-3">
-          <label for="bookingDate" class="form-label">Chọn Ngày <span class="text-danger">*</span></label>
-          <input type="date" class="form-control" id="bookingDate" th:field="*{date}" required>
-          <div class="text-danger validation-error" th:if="${#fields.hasErrors('date')}" th:errors="*{date}"></div>
-        </div>
+      <label for="date">Chọn ngày:</label>
+      <input type="date" id="date" th:field="*{date}" required>
 
-        <div class="mb-3">
-          <label class="form-label">Chọn Khung Giờ <span class="text-danger">*</span></label>
-          <div id="timeSlotsContainer" class="border p-3 rounded">
-            <p class="text-muted fst-italic">Vui lòng chọn sân và ngày để xem các khung giờ trống.</p>
-          </div>
-          <input type="hidden" id="selectedStartTime" th:field="*{startTime}" />
-          <div class="text-danger validation-error" th:if="${#fields.hasErrors('startTime')}" th:errors="*{startTime}"></div>
-          <div class="text-danger server-error" th:if="${errorMessage}" th:text="${errorMessage}"></div>
-        </div>
+      <label for="time">Chọn giờ:</label>
+      <input type="time" id="time" th:field="*{time}" required>
 
-        <div class="mb-3">
-          <label for="notes" class="form-label">Ghi Chú (Tùy chọn)</label>
-          <textarea id="notes" class="form-control" rows="2" th:field="*{notes}"></textarea>
-        </div>
+      <label for="duration">Thời lượng (giờ):</label>
+      <select id="duration" th:field="*{duration}" required>
+        <option value="">-- Chọn thời lượng --</option>
+        <option th:value="1">1 giờ</option>
+        <option th:value="2">2 giờ</option>
+        <option th:value="3">3 giờ</option>
+      </select>
 
-        <button type="submit" class="btn btn-primary" id="submitBookingBtn" disabled>
-          <i class="fas fa-calendar-check"></i> Gửi Yêu Cầu Đặt Sân
-        </button>
-        <a th:href="@{/courts/list}" class="btn btn-secondary">Hủy</a>
-      </form>
+      <button type="submit">Đặt sân</button>
+    </form>
+
+    <div th:if="${success}" class="alert alert-success mt-3">
+      <p th:text="${success}"></p>
     </div>
-
-    <div class="col-md-5">
-      <h4>Thông tin Sân được chọn</h4>
-      <div id="courtInfoPanel" class="p-3 bg-light rounded">
-        <p class="text-muted fst-italic">Vui lòng chọn một sân từ danh sách.</p>
-      </div>
-      <hr>
-      <h4>Chi tiết đặt sân (dự kiến)</h4>
-      <div id="bookingSummaryPanel" class="p-3 border rounded">
-        <p><strong>Sân:</strong> <span id="summaryCourt">-</span></p>
-        <p><strong>Ngày:</strong> <span id="summaryDate">-</span></p>
-        <p><strong>Giờ:</strong> <span id="summaryTime">-</span></p>
-        <p><strong>Tổng cộng (dự kiến):</strong> <span id="summaryTotal" class="fw-bold">0 VNĐ</span></p>
-      </div>
-    </div>
-  </div>
+  </main>
 </div>
-
-<th:block layout:fragment="scripts">
-  <script th:inline="javascript">
-    /*<![CDATA[*/
-    const pageBookingData = {
-      // Truyền danh sách sân có sẵn để JS không cần gọi API lấy thông tin nếu đã có
-      availableCourts: /*[[${availableCourts}]]*/ [],
-      // Truyền ID sân đã được chọn nếu có (ví dụ từ link "Đặt ngay")
-      selectedCourtId: /*[[${selectedCourtId}]]*/ null,
-      // Truyền các endpoint API cần thiết
-      apiEndpoints: {
-        courtInfo: /*[[@{/api/courts/}]]*/ '/api/courts/', // Nhớ có dấu / cuối nếu cần ghép ID
-        availableSlots: /*[[@{/api/bookings/available-slots}]]*/ '/api/bookings/available-slots'
-      }
-    };
-    /*]]>*/
-  </script>
-  <script th:src="@{/js/booking-create.js}"></script>
-</th:block>
-
 </body>
 </html>
