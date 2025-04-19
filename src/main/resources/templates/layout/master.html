@@ -1,39 +1,41 @@
-<!-- html/layout/master.html -->
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <meta charset="UTF-8">
-    <title>Pickleball Booking System</title>
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/header.css">
-    <link rel="stylesheet" href="/css/footer.css">
-    <link rel="stylesheet" href="/css/left-menu.css">
+    <title layout:title-pattern="Pickleball Booking">Pickleball Booking</title>
+
+    <!-- CSS chung -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/header.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/left-menu.css}">
+
+    <!-- CSS bổ sung từ các trang con -->
+    <th:block layout:fragment="styles"></th:block>
 </head>
 <body>
 <!-- Header -->
-<div id="header">
-    <!-- Header will be loaded here -->
-</div>
+<div th:replace="layout/header :: header"></div>
 
 <div class="container">
     <!-- Left Menu -->
-    <div id="left-menu">
-        <!-- Left menu will be loaded here -->
-    </div>
+    <div th:replace="layout/left-menu :: leftMenu"></div>
 
-    <!-- Main Content -->
-    <main id="main-content">
-        <!-- Dynamic content render -->
-    </main>
+    <!-- Nội dung trang con -->
+    <main layout:fragment="content"></main>
 </div>
 
 <!-- Footer -->
-<div id="footer">
-    <!-- Footer will be loaded here -->
-</div>
+<div th:replace="layout/footer :: footer"></div>
 
-<script src="/js/main.js"></script>
-<script src="/js/header.js"></script>
-<script src="/js/left-menu.js"></script>
+<!-- JS chung -->
+<script th:src="@{/js/main.js}"></script>
+<script th:src="@{/js/header.js}"></script>
+<script th:src="@{/js/left-menu.js}"></script>
+<script th:src="@{/js/footer.js}"></script>
+
+<!-- JS bổ sung từ các trang con -->
+<th:block layout:fragment="scripts"></th:block>
 </body>
 </html>
