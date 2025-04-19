@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cửa hàng</title>
+    <link rel="stylesheet" href="/css/products.css" />
+    <script src="/js/products.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <h1>🛍️ Danh sách sản phẩm</h1>
+
+        <!-- Bộ Lọc -->
+        <div class="product-filters">
+            <label for="category">Danh mục:</label>
+            <select id="category" name="category">
+                <option value="all">Tất cả</option>
+                <option value="racket">Vợt cầu lông</option>
+                <option value="shoes">Giày</option>
+                <option value="drink">Đồ uống</option>
+            </select>
+
+            <label for="sort">Sắp xếp:</label>
+            <select id="sort" name="sort">
+                <option value="default">Mặc định</option>
+                <option value="price-asc">Giá tăng dần</option>
+                <option value="price-desc">Giá giảm dần</option>
+            </select>
+        </div>
+
+        <!-- Danh sách sản phẩm -->
+        <div id="product-list" class="product-list">
+            <!-- Sản phẩm sẽ được load từ JavaScript -->
+        </div>
+    </div>
+</body>
+</html>
