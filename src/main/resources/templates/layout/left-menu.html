@@ -1,9 +1,14 @@
-<!-- html/layout/left-menu.html -->
-<aside class="left-menu">
-    <ul>
-        <li><a href="/html/user-profile.html">Thông tin cá nhân</a></li>
-        <li><a href="/html/booking-history.html">Lịch sử đặt sân</a></li>
-        <li><a href="/html/order-history.html">Lịch sử đơn hàng</a></li>
-        <li><a href="/html/support.html">Liên hệ hỗ trợ</a></li>
-    </ul>
-</aside>
+<div th:fragment="leftMenu">
+    <aside class="left-menu">
+        <nav class="side-nav">
+            <ul>
+                <li><a th:href="@{/profile}">Thông tin cá nhân</a></li>
+                <li><a th:href="@{/booking/history}">Lịch sử đặt sân</a></li>
+                <li><a th:href="@{/cart}">Giỏ hàng</a></li>
+                <li><a th:href="@{/orders}">Đơn hàng của bạn</a></li>
+                <li><a th:href="@{/support}">Hỗ trợ</a></li>
+                <li><a th:href="@{/logout}">Đăng xuất</a></li>
+            </ul>
+        </nav>
+    </aside>
+</div>
