@@ -1,31 +1,44 @@
 package com.example.pickleball.model.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
 
 @Entity
-@Getter
-@Setter
 public class OrderItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // Sản phẩm được đặt
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
 
-    // Số lượng đặt
     private int quantity;
 
-    // Giá tại thời điểm đặt hàng (có thể thay đổi theo thời gian)
-    private double price;
+    private double unitPrice; // đổi từ price thành unitPrice
 
-    // Liên kết với Order (một Order có nhiều OrderItem)
     @ManyToOne
     @JoinColumn(name = "order_id")
     private Order order;
+
+    // Getter & Setter
+    public Long getId() { return id; }
+
+    public void setId(Long id) { this.id = id; }
+
+    public Product getProduct() { return product; }
+
+    public void setProduct(Product product) { this.product = product; }
+
+    public int getQuantity() { return quantity; }
+
+    public void setQuantity(int quantity) { this.quantity = quantity; }
+
+    public double getUnitPrice() { return unitPrice; }
+
+    public void setUnitPrice(double unitPrice) { this.unitPrice = unitPrice; }
+
+    public Order getOrder() { return order; }
+
+    public void setOrder(Order order) { this.order = order; }
 }
