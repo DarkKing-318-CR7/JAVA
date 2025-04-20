@@ -6,9 +6,18 @@ import com.example.pickleball.model.entity.Booking;
 import java.util.List;
 
 public interface BookingService {
-    List<BookingDto> getAllBookings();
-    List<BookingDto> getBookingsByUser(Long userId);
-    BookingDto createBooking(BookingDto bookingDto);
-    void deleteBooking(Long id);
-}
 
+    void createBooking(BookingDto bookingDto);
+
+    List<BookingDto> getAllBookings();
+
+    BookingDto getBookingById(Long id);
+
+    void updateBooking(Long id, BookingDto bookingDto);
+
+    void deleteBooking(Long id);
+
+    List<BookingDto> getBookingsByUserId(Long userId);
+    List<Booking> getBookingsByUser(Long userId);
+
+}

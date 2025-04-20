@@ -11,4 +11,6 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
 
     // Optional: Tránh trùng sân + thời gian
     boolean existsByCourtIdAndDateAndTime(Long courtId, LocalDate date, LocalTime time);
+
+
 }

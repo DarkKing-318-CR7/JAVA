@@ -7,17 +7,22 @@
   <link rel="stylesheet" href="/css/login.css">
 </head>
 <body>
-  <div class="auth-container">
-    <h2>Đăng nhập</h2>
-    <form th:action="@{/login}" method="post">
-      <input type="text" name="username" placeholder="Tên đăng nhập" required>
-      <input type="password" name="password" placeholder="Mật khẩu" required>
-      <button type="submit">Đăng nhập</button>
-    </form>
+<div class="auth-container">
+  <h2>Đăng nhập</h2>
+  <form th:action="@{/login}" method="post">
+    <input type="text" name="username" placeholder="Tên đăng nhập" required>
+    <input type="password" name="password" placeholder="Mật khẩu" required>
+    <button type="submit">Đăng nhập</button>
+  </form>
 
+  <!-- ✅ Thêm phần này -->
+  <p style="margin-top: 15px; text-align: center;">
+    Bạn chưa có tài khoản?
+  <a href="/register">Đăng ký ngay</a>
 
-  </div>
+  </p>
+</div>
 
-  <script src="/js/login.js"></script>
+<script src="/js/login.js"></script>
 </body>
 </html>
