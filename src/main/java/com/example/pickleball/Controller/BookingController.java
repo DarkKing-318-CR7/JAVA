@@ -46,15 +46,24 @@ public class BookingController {
     @PostMapping
     public String createBooking(@ModelAttribute BookingDto bookingDto,
                                 Principal principal,
-                                RedirectAttributes redirectAttributes) {
+                                Model model) {
         Long userId = userService.getUserIdByUsername(principal.getName());
         bookingDto.setUserId(userId);
 
         bookingService.createBooking(bookingDto);
-        redirectAttributes.addFlashAttribute("success", "Đặt sân thành công!");
 
-        return "redirect:/bookings/history";
+        // Nạp lại dữ liệu cần thiết cho form
+        List<CourtDto> courts = courtService.getAll();
+        List<String> timeSlots = List.of("08:00", "09:00", "10:00", "11:00", "13:00", "14:00");
+
+        model.addAttribute("booking", new BookingDto()); // reset form
+        model.addAttribute("availableCourts", courts);
+        model.addAttribute("availableSlots", timeSlots);
+        model.addAttribute("success", "Đặt sân thành công!");
+
+        return "bookings/create";
     }
+
 
     // ✅ Hiển thị lịch sử đặt sân của người dùng
     @GetMapping("/history")

@@ -1,4 +1,5 @@
 package com.example.pickleball.Service;
+
 import com.example.pickleball.Repositories.UserRepository;
 import com.example.pickleball.model.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +21,9 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         return org.springframework.security.core.userdetails.User.builder()
                 .username(user.getUsername())
-                .password(user.getPassword()) // đã mã hóa BCrypt
-                .roles("USER") // có thể mở rộng thêm role
+                .password(user.getPassword()) // mật khẩu đã mã hóa
+                .roles(user.getRoles().stream().map(Enum::name).toArray(String[]::new)) // ⚠️ Lấy roles từ entity
+                .disabled(!user.isEnabled()) // ⚠️ Nếu tài khoản bị disabled thì không cho login
                 .build();
     }
 }
