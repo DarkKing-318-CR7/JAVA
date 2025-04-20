@@ -14,26 +14,45 @@
     <h2>Đặt sân chơi Pickleball</h2>
 
     <form th:action="@{/bookings}" th:object="${booking}" method="post">
+      <!-- Chọn sân -->
       <label for="court">Chọn sân:</label>
-      <input type="text" id="court" th:field="*{courtName}" required>
+      <select id="court" th:field="*{courtId}" required>
+        <option value="">-- Chọn sân --</option>
+        <option th:each="c : ${availableCourts}"
+                th:value="${c.id}"
+                th:text="${c.name}">Sân</option>
+      </select>
 
+      <!-- Ngày -->
       <label for="date">Chọn ngày:</label>
       <input type="date" id="date" th:field="*{date}" required>
 
+      <!-- Giờ -->
       <label for="time">Chọn giờ:</label>
-      <input type="time" id="time" th:field="*{time}" required>
+      <select id="time" th:field="*{time}" required>
+        <option value="">-- Chọn giờ --</option>
+        <option th:each="slot : ${availableSlots}"
+                th:value="${slot}" th:text="${slot}">Giờ</option>
+      </select>
 
+      <!-- Thời lượng -->
       <label for="duration">Thời lượng (giờ):</label>
       <select id="duration" th:field="*{duration}" required>
         <option value="">-- Chọn thời lượng --</option>
-        <option th:value="1">1 giờ</option>
-        <option th:value="2">2 giờ</option>
-        <option th:value="3">3 giờ</option>
+        <option value="1">1 giờ</option>
+        <option value="2">2 giờ</option>
+        <option value="3">3 giờ</option>
       </select>
 
+      <!-- Ghi chú -->
+      <label for="notes">Ghi chú (nếu có):</label>
+      <textarea id="notes" th:field="*{notes}" placeholder="Ghi chú thêm..."></textarea>
+
+      <!-- Nút submit -->
       <button type="submit">Đặt sân</button>
     </form>
 
+    <!-- Thông báo -->
     <div th:if="${success}" class="alert alert-success mt-3">
       <p th:text="${success}"></p>
     </div>
