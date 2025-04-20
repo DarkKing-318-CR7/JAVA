@@ -8,42 +8,46 @@ public class Cart {
 
     private Map<Product, Integer> items = new HashMap<>();
 
-    // Thêm sản phẩm vào giỏ hàng
     public void addItem(Product product, int quantity) {
-        if (product == null || quantity <= 0) {
-            return;
-        }
+        if (product == null || quantity <= 0) return;
         items.merge(product, quantity, Integer::sum);
     }
 
-    // Xóa một sản phẩm khỏi giỏ hàng
     public void removeItem(Product product) {
         items.remove(product);
     }
 
-    // Xóa toàn bộ giỏ hàng
     public void clear() {
         items.clear();
     }
 
-    // Lấy danh sách sản phẩm trong giỏ hàng
     public Map<Product, Integer> getItems() {
         return items;
     }
 
-    // Tính tổng số lượng sản phẩm trong giỏ hàng
     public int getTotalQuantity() {
         return items.values().stream().mapToInt(Integer::intValue).sum();
     }
 
-    // Tính tổng tiền (giả sử Product có getPrice())
     public double getTotalPrice() {
         return items.entrySet().stream()
-                .mapToDouble(entry -> entry.getKey().getPrice() * entry.getValue())
+                .mapToDouble(e -> e.getKey().getPrice() * e.getValue())
                 .sum();
     }
+    // Trả về tổng tiền của giỏ hàng
+    public double getTotal() {
+        double total = 0.0;
+        for (Map.Entry<Product, Integer> entry : items.entrySet()) {
+            Product product = entry.getKey();
+            Integer quantity = entry.getValue();
+            total += product.getPrice() * quantity;
+        }
+        return total;
+    }
 
-    // Optional: equals & hashCode nếu cần so sánh Cart
+
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

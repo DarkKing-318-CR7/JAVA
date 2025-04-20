@@ -42,13 +42,13 @@ public class OrderService {
             OrderItem orderItem = new OrderItem();
             orderItem.setProduct(product);
             orderItem.setQuantity(quantity);
-            orderItem.setPrice(product.getPrice());
+            orderItem.setUnitPrice(product.getPrice()); // ✅
             orderItem.setOrder(order);
 
             orderItems.add(orderItem);
         }
 
-        order.setOrderItems(orderItems);
+        order.setItems(orderItems);
         order.setTotalAmount(cart.getTotalPrice());
 
         // Save order and order items

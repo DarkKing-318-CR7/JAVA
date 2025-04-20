@@ -2,10 +2,10 @@ package com.example.pickleball.model.entity;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "orders") // Tránh trùng với từ khóa SQL
 public class Order {
 
     @Id
@@ -16,12 +16,16 @@ public class Order {
     private String address;
     private String phone;
     private LocalDateTime createdAt;
+
+    private LocalDateTime orderDate;
+
     private double totalAmount;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<OrderItem> orderItems;
+    // Quan hệ 1-n với OrderItem
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    private List<OrderItem> items = new ArrayList<>();
 
-    // Getters và Setters
+    // Getter và Setter
     public Long getId() {
         return id;
     }
@@ -62,6 +66,14 @@ public class Order {
         this.createdAt = createdAt;
     }
 
+    public LocalDateTime getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(LocalDateTime orderDate) {
+        this.orderDate = orderDate;
+    }
+
     public double getTotalAmount() {
         return totalAmount;
     }
@@ -70,11 +82,11 @@ public class Order {
         this.totalAmount = totalAmount;
     }
 
-    public List<OrderItem> getOrderItems() {
-        return orderItems;
+    public List<OrderItem> getItems() {
+        return items;
     }
 
-    public void setOrderItems(List<OrderItem> orderItems) {
-        this.orderItems = orderItems;
+    public void setItems(List<OrderItem> items) {
+        this.items = items;
     }
 }
