@@ -2,11 +2,12 @@ document.getElementById("header").innerHTML = `
   <header class="header">
     <div class="logo">🏓 Pickleball Booking</div>
     <nav class="nav">
-      <a href="/index.html">Trang chủ</a>
-      <a href="/html/booking.html">Đặt sân</a>
-      <a href="/html/shop.html">Cửa hàng</a>
-      <a href="/html/weather.html">Thời tiết</a>
-      <a href="/html/login.html">Đăng nhập</a>
+     <li><a th:href="@{/}">Trang chủ</a></li>
+            <li><a th:href="@{/bookings}">Đặt sân</a></li>
+            <li><a th:href="@{/shop}">Cửa hàng</a></li>
+            <li><a th:href="@{/support}">Hỗ trợ</a></li>
+            <li><a th:href="@{/profile}">Tài khoản</a></li>
+            <li><a th:href="@{/cart}">Giỏ hàng</a></li>
     </nav>
   </header>
 `;
