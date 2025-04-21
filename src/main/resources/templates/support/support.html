@@ -1,23 +1,21 @@
+<!-- templates/support/support.html -->
 <!DOCTYPE html>
-<html lang="vi">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/master}">
 <head>
-  <meta charset="UTF-8" />
-  <title>Hỗ trợ khách hàng - Pickleball Booking</title>
-  <link rel="stylesheet" href="/css/style.css" />
-  <link rel="stylesheet" href="/css/support.css" />
+  <title>Hỗ trợ khách hàng</title>
+
+  <th:block layout:fragment="styles">
+    <link rel="stylesheet" th:href="@{/css/support.css}">
+  </th:block>
 </head>
+
 <body>
-<!-- Header -->
-<div id="header"></div>
-
-<div class="container">
-  <!-- Left Menu -->
-  <div id="left-menu"></div>
-
-  <!-- Main Content -->
+<section layout:fragment="content">
   <main class="support-container">
     <h2>Liên hệ Hỗ trợ</h2>
-    <form id="support-form">
+    <form th:action="@{/support}" method="post" id="support-form">
       <label for="fullname">Họ và Tên:</label>
       <input type="text" id="fullname" name="fullname" required />
 
@@ -34,14 +32,6 @@
     </form>
     <div id="support-response"></div>
   </main>
-</div>
-
-<!-- Footer -->
-<div id="footer"></div>
-
-<script src="/js/main.js"></script>
-<script src="/js/header.js"></script>
-<script src="/js/left-menu.js"></script>
-<script src="/js/support.js"></script>
+</section>
 </body>
 </html>

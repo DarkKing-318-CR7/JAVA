@@ -1,20 +1,15 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/master}">
 <head>
     <meta charset="UTF-8">
     <title>Lịch sử đặt sân - Pickleball Booking</title>
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/booking-history.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/booking-history.css}">
 </head>
 <body>
-<!-- Header -->
-<div id="header"></div>
-
-<div class="container">
-    <!-- Left Menu -->
-    <div id="left-menu"></div>
-
-    <!-- Booking History -->
+<div layout:fragment="content">
     <main class="booking-history-container">
         <h2>Lịch sử đặt sân</h2>
         <table class="booking-table">
@@ -28,19 +23,18 @@
                 <th>Trạng thái</th>
             </tr>
             </thead>
-            <tbody id="booking-history-body">
-            <!-- Dữ liệu sẽ được thêm bằng JS -->
+            <tbody>
+            <tr th:each="booking, stat : ${bookings}">
+                <td th:text="${stat.index + 1}">1</td>
+                <td th:text="${booking.courtName}">Sân A</td>
+                <td th:text="${booking.date}">2025-04-20</td>
+                <td th:text="${booking.time}">09:00</td>
+                <td th:text="${booking.duration} + ' giờ'">2 giờ</td>
+                <td th:text="${booking.status}">PENDING</td>
+            </tr>
             </tbody>
         </table>
     </main>
 </div>
-
-<!-- Footer -->
-<div id="footer"></div>
-
-<script src="/js/main.js"></script>
-<script src="/js/header.js"></script>
-<script src="/js/left-menu.js"></script>
-<script src="/js/booking-history.js"></script>
 </body>
 </html>

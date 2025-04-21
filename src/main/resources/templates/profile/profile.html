@@ -1,47 +1,32 @@
+<!-- templates/profile/profile.html -->
 <!DOCTYPE html>
-<html lang="vi">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/master}">
 <head>
-    <meta charset="UTF-8" />
-    <title>Thông tin cá nhân - Pickleball Booking</title>
-    <link rel="stylesheet" href="/css/style.css" />
-    <link rel="stylesheet" href="/css/profile.css" />
+    <title>Thông tin cá nhân</title>
+    <th:block layout:fragment="styles">
+        <link rel="stylesheet" th:href="@{/css/profile.css}">
+    </th:block>
 </head>
+
 <body>
-<!-- Header -->
-<div id="header"></div>
-
-<div class="container">
-    <!-- Left Menu -->
-    <div id="left-menu"></div>
-
-    <!-- Main Content -->
+<section layout:fragment="content">
     <main class="profile-container">
         <h2>Thông tin cá nhân</h2>
+        <form th:action="@{/profile/update}" method="post" id="profile-form">
+            <label for="fullName">Họ tên:</label>
+            <input type="text" id="fullName" name="fullName" th:value="${user.fullName}" required />
 
-        <form id="profile-form">
-            <label>Họ và tên</label>
-            <input type="text" name="fullname" value="Nguyễn Văn A" />
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" th:value="${user.email}" required />
 
-            <label>Email</label>
-            <input type="email" name="email" value="nguyenvana@example.com" />
+            <label for="phone">Số điện thoại:</label>
+            <input type="text" id="phone" name="phone" th:value="${user.phone}" />
 
-            <label>Số điện thoại</label>
-            <input type="text" name="phone" value="0912345678" />
-
-            <label>Mật khẩu</label>
-            <input type="password" name="password" placeholder="Để trống nếu không đổi" />
-
-            <button type="submit">Cập nhật thông tin</button>
+            <button type="submit" class="btn-primary">Cập nhật</button>
         </form>
     </main>
-</div>
-
-<!-- Footer -->
-<div id="footer"></div>
-
-<script src="/js/main.js"></script>
-<script src="/js/header.js"></script>
-<script src="/js/left-menu.js"></script>
-<script src="/js/profile.js"></script>
+</section>
 </body>
 </html>
