@@ -69,9 +69,8 @@ public class BookingController {
     @GetMapping("/history")
     public String userBookingHistory(Model model, Principal principal) {
         Long userId = userService.getUserIdByUsername(principal.getName());
-        List<Booking> bookings = bookingService.getBookingsByUser(userId);
+        List<BookingDto> bookings = bookingService.getBookingsByUserId(userId); // ✅ dùng BookingDto
         model.addAttribute("bookings", bookings);
         return "bookings/booking-history";
     }
-
 }

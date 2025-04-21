@@ -100,6 +100,7 @@ public class BookingServiceImpl implements BookingService {
         dto.setCourtId(booking.getCourt().getId());
         dto.setCourtName(booking.getCourt().getName());
         dto.setStatus(booking.getStatus().name());
+        dto.setDuration(booking.getDuration());
         return dto;
     }
 

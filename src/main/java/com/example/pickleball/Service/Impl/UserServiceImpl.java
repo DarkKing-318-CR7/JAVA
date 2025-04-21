@@ -54,6 +54,23 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new UsernameNotFoundException("Không tìm thấy người dùng: " + username))
                 .getId();
     }
+    @Override
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Không tìm thấy người dùng: " + username));
+    }
 
+    @Override
+    public void updateUserInfo(String username, User updatedUser) {
+        User existingUser = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Không tìm thấy người dùng: " + username));
+
+        existingUser.setFullName(updatedUser.getFullName());
+        existingUser.setEmail(updatedUser.getEmail());
+        existingUser.setPhone(updatedUser.getPhone());
+        // Nếu bạn có thêm địa chỉ, ngày sinh v.v, gán thêm ở đây
+
+        userRepository.save(existingUser);
+    }
 }
 
