@@ -1,13 +1,46 @@
 <div th:fragment="leftMenu">
-    <aside class="left-menu">
+    <aside class="left-menu expanded" id="leftMenu">
+        <button class="menu-toggle" onclick="toggleMenu()">
+            <i class="fas fa-bars"></i>
+        </button>
         <nav class="side-nav">
             <ul>
-                <li><a th:href="@{/profile}">Thông tin cá nhân</a></li>
-                <li><a th:href="@{/bookings/history}">Lịch sử đặt sân</a></li>
-                <li><a th:href="@{/cart}">Giỏ hàng</a></li>
-                <li><a th:href="@{/orders}">Đơn hàng của bạn</a></li>
-                <li><a th:href="@{/support}">Hỗ trợ</a></li>
-                <li><a th:href="@{/logout}">Đăng xuất</a></li>
+                <li>
+                    <a th:href="@{/profile}">
+                        <i class="fas fa-user-circle"></i>
+                        <span class="menu-text">Thông tin cá nhân</span>
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{/bookings/history}">
+                        <i class="fas fa-calendar-check"></i>
+                        <span class="menu-text">Lịch sử đặt sân</span>
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{/cart}">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="menu-text">Giỏ hàng</span>
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{/orders}">
+                        <i class="fas fa-box-open"></i>
+                        <span class="menu-text">Đơn hàng của bạn</span>
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{/support}">
+                        <i class="fas fa-headset"></i>
+                        <span class="menu-text">Hỗ trợ</span>
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{/logout}">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span class="menu-text">Đăng xuất</span>
+                    </a>
+                </li>
             </ul>
         </nav>
     </aside>
