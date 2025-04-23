@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/shop")
-public class ShopController {
+public class    ShopController {
 
     @Autowired
     private ProductService productService;
