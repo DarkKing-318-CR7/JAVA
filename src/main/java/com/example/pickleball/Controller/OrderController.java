@@ -1,40 +1,52 @@
 package com.example.pickleball.Controller;
 
-import com.example.pickleball.model.entity.Cart;
-import com.example.pickleball.Service.OrderService;
-import jakarta.servlet.http.HttpSession;
+import com.example.pickleball.Repositories.OrderItemRepository;
+import com.example.pickleball.Repositories.OrderRepository;
+import com.example.pickleball.model.entity.Order;
+import com.example.pickleball.model.entity.OrderItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
+@RequestMapping("/orders")
 public class OrderController {
 
     @Autowired
-    private OrderService orderService;
+    private OrderRepository orderRepository;
 
-    @PostMapping("/checkout/order")
-    public String processCheckout(HttpSession session) {
-        Cart cart = (Cart) session.getAttribute("cart");
+    @Autowired
+    private OrderItemRepository orderItemRepository;
 
-        if (cart == null || cart.getItems().isEmpty()) {
-            return "redirect:/cart";
-        }
-
-        // Tạm hardcode thông tin khách hàng
-        String customerName = "Test User";
-        String address = "123 Main Street";
-        String phone = "0123456789";
-
-        orderService.createOrderFromCart(cart, customerName, address, phone);
-
-        session.removeAttribute("cart");
-        return "redirect:/checkout-success";
+    // Trang danh sách tất cả các đơn hàng
+    @GetMapping("")
+    public String listOrders(Model model) {
+        List<Order> orders = orderRepository.findAll();
+        model.addAttribute("orders", orders);
+        return "orders/orders"; // templates/orders/orders.html
     }
 
-    @GetMapping("/checkout-success")
-    public String showSuccessPage() {
-        return "checkout-success";
+    // Trang chi tiết đơn hàng theo id
+    @GetMapping("/{id}")
+    public String viewOrder(@PathVariable Long id, Model model) {
+        Order order = orderRepository.findById(id).orElse(null);
+        if (order == null) {
+            return "redirect:/orders"; // nếu không thấy thì quay về danh sách
+        }
+
+        List<OrderItem> items = orderItemRepository.findByOrder(order);
+        model.addAttribute("order", order);
+        model.addAttribute("items", items);
+        return "orders/detail"; // templates/orders/detail.html
+    }
+
+    // Xóa đơn hàng
+    @PostMapping("/{id}/delete")
+    public String deleteOrder(@PathVariable Long id) {
+        orderRepository.deleteById(id);
+        return "redirect:/orders";
     }
 }

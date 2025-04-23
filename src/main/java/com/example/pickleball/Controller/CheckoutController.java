@@ -33,6 +33,7 @@ public class CheckoutController {
         return "checkout/checkout";
     }
 
+
     @PostMapping("/process")
     public String processCheckout(HttpSession session) {
         Cart cart = (Cart) session.getAttribute("cart");
