@@ -23,9 +23,14 @@ public class CartController {
         if (cart == null) {
             cart = new Cart();
         }
+
         model.addAttribute("cart", cart);
-        return "cart/cart"; // -> src/main/resources/templates/cart/view.html
+        model.addAttribute("itemList", cart.getItemList()); // ⚠️ THÊM DÒNG NÀY
+
+        return "cart/cart";
     }
+
+
 
     // Thêm vào giỏ hàng
     @PostMapping("/add")

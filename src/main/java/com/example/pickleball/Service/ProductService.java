@@ -18,6 +18,11 @@ public class ProductService {
     }
 
     public Product findById(int id) {
-        return productRepository.findById(id);
+        // fix: handle Optional
+        return productRepository.findById(id).orElse(null);
+    }
+
+    public List<Product> findByCategory(String category) {
+        return productRepository.findByCategory(category); // dùng phương thức query của Spring Data JPA
     }
 }
