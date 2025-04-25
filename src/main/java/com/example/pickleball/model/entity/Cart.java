@@ -3,6 +3,10 @@ package com.example.pickleball.model.entity;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.ArrayList;
+import java.util.List;
+import com.example.pickleball.model.entity.CartItem;
+
 
 public class Cart {
 
@@ -44,6 +48,15 @@ public class Cart {
         }
         return total;
     }
+    public List<CartItem> getItemList() {
+        List<CartItem> list = new ArrayList<>();
+        for (Map.Entry<Product, Integer> entry : items.entrySet()) {
+            list.add(new CartItem(entry.getKey(), entry.getValue()));
+        }
+        return list;
+    }
+
+
 
 
 

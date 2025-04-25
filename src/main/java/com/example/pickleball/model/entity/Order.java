@@ -6,18 +6,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "`order`")
+@Table(name = "`orders`")
 public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "customer_name") // ✅ Đúng cột
     private String customerName;
+
     private String address;
     private String phone;
-    private String username;      // <== Thêm
-    private String status;// <== Thêm
+    private String username;
+    private String status;
     private String customerEmail;
 
     private LocalDateTime createdAt;
@@ -48,11 +50,11 @@ public class Order {
     public String getPhone() { return phone; }
     public void setPhone(String phone) { this.phone = phone; }
 
-    public String getUsername() { return username; }                    // <== Getter
-    public void setUsername(String username) { this.username = username; }  // <== Setter
+    public String getUsername() { return username; }
+    public void setUsername(String username) { this.username = username; }
 
-    public String getStatus() { return status; }                        // <== Getter
-    public void setStatus(String status) { this.status = status; }     // <== Setter
+    public String getStatus() { return status; }
+    public void setStatus(String status) { this.status = status; }
 
     public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
@@ -66,9 +68,9 @@ public class Order {
     public List<OrderItem> getItems() { return items; }
     public void setItems(List<OrderItem> items) { this.items = items; }
 
-    // === Add single item
     public void addItem(OrderItem item) {
         items.add(item);
-        item.setOrder(this);  // Đặt mối quan hệ 2 chiều
+        item.setOrder(this);
     }
+
 }

@@ -1,10 +1,18 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/master}">
+
 <head>
-    <title>Thanh toán thành công</title>
+    <title layout:title="Thanh toán thành công">Thanh toán thành công</title>
 </head>
+
 <body>
-<h2>✅ Cảm ơn bạn! Đơn hàng đã được đặt thành công.</h2>
-<a th:href="@{/shop}">Quay lại cửa hàng</a>
+<div layout:fragment="content">
+    <div style="padding: 20px;">
+        <h2 style="color: green;">✅ Cảm ơn bạn! Đơn hàng đã được đặt thành công.</h2>
+        <p><a th:href="@{/shop}">Quay lại cửa hàng</a></p>
+    </div>
+</div>
 </body>
 </html>

@@ -5,7 +5,6 @@
 <head>
     <title>Cửa hàng</title>
 
-    <!-- Chèn CSS riêng nếu có -->
     <th:block layout:fragment="styles">
         <link rel="stylesheet" th:href="@{/css/products.css}" />
     </th:block>
@@ -16,33 +15,41 @@
         <h1>🛍️ Danh sách sản phẩm</h1>
 
         <!-- Bộ Lọc -->
-        <div class="product-filters mb-3">
+        <form method="get" th:action="@{/shop}" id="filterForm" class="product-filters mb-3">
             <label for="category">Danh mục:</label>
-            <select id="category" name="category">
-                <option value="all">Tất cả</option>
-                <option value="racket">Vợt cầu lông</option>
-                <option value="shoes">Giày</option>
-                <option value="drink">Đồ uống</option>
+            <select id="category" name="category" onchange="this.form.submit()">
+                <option value="all" th:selected="${category == null or category == 'all'}">Tất cả</option>
+                <option value="racket" th:selected="${category == 'racket'}">Vợt pickleball</option>
+                <option value="shoes" th:selected="${category == 'shoes'}">Giày</option>
+                <option value="shirt" th:selected="${category == 'shirt'}">Áo thi đấu</option>
+                <option value="ball" th:selected="${category == 'ball'}">Bóng thi đấu</option>
+                <option value="snacks" th:selected="${category == 'snacks'}">Đồ ăn nhẹ</option>
+
             </select>
 
             <label for="sort">Sắp xếp:</label>
-            <select id="sort" name="sort">
-                <option value="default">Mặc định</option>
-                <option value="price-asc">Giá tăng dần</option>
-                <option value="price-desc">Giá giảm dần</option>
+            <select id="sort" name="sort" onchange="this.form.submit()">
+                <option value="default" th:selected="${sort == null or sort == 'default'}">Mặc định</option>
+                <option value="price-asc" th:selected="${sort == 'price-asc'}">Giá tăng dần</option>
+                <option value="price-desc" th:selected="${sort == 'price-desc'}">Giá giảm dần</option>
             </select>
-        </div>
+        </form>
 
-        <!-- Danh sách sản phẩm -->
-        <div id="product-list" class="product-list">
-            <!-- Sản phẩm sẽ được load từ JavaScript -->
+        <!-- Danh sách sản phẩm dạng lưới -->
+        <div id="product-list" class="product-grid">
+            <div th:each="product : ${products}" class="product-card">
+                <img th:src="@{${product.imageUrl}}" alt="Ảnh sản phẩm" />
+                <h3 th:text="${product.name}">Tên sản phẩm</h3>
+                <p th:text="${product.description}">Mô tả sản phẩm</p>
+                <p class="price" th:text="'Giá: ' + ${product.price} + ' đ'">Giá</p>
+                <a th:href="@{'/shop/detail/' + ${product.id}}" class="btn btn-primary">Xem chi tiết</a>
+            </div>
         </div>
     </div>
 </div>
 
-<!-- Chèn JS riêng nếu có -->
-<th:block layout:fragment="scripts">
+<!-- <th:block layout:fragment="scripts">
     <script th:src="@{/js/products.js}" defer></script>
-</th:block>
+</th:block> -->
 </body>
 </html>

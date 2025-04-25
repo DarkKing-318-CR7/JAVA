@@ -1,29 +1,30 @@
-
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/master}">
+
 <head>
     <meta charset="UTF-8">
     <title>Giỏ hàng của bạn</title>
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/cart.css">
-</head>
-<body>
-<header class="site-header">
-    <div class="logo">🏸 Pickleball Booking</div>
-    <nav class="main-nav">
-        <ul>
-            <li><a href="/">Trang chủ</a></li>
-            <li><a href="/booking">Đặt sân</a></li>
-            <li><a href="/shop">Cửa hàng</a></li>
-            <li><a href="/cart">Giỏ hàng</a></li>
-        </ul>
-    </nav>
-</header>
 
-<main class="container">
-    <h2>🛒 Giỏ hàng của bạn</h2>
-    <table class="cart-table">
-        <thead>
+    <th:block layout:fragment="styles">
+        <link rel="stylesheet" href="/css/cart.css">
+    </th:block>
+</head>
+
+<body>
+<div layout:fragment="content">
+    <main class="container">
+        <h2>🛒 Giỏ hàng của bạn</h2>
+
+        <!-- ✅ Hiển thị thông báo nếu có -->
+        <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+
+        <table class="cart-table">
+            <thead>
             <tr>
                 <th>Sản phẩm</th>
                 <th>Đơn giá</th>
@@ -31,26 +32,37 @@
                 <th>Thành tiền</th>
                 <th>Xóa</th>
             </tr>
-        </thead>
-        <tbody id="cart-items">
-            <!-- Dữ liệu sản phẩm sẽ được render bởi JS -->
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            <tr th:each="item : ${cart.itemList}">
+                <td th:text="${item.product.name}">Tên sản phẩm</td>
+                <td th:text="${#numbers.formatDecimal(item.product.price, 0, 'COMMA', 0, 'POINT')} + ' đ'">0 đ</td>
+                <td th:text="${item.quantity}">1</td>
+                <td th:text="${#numbers.formatDecimal(item.product.price * item.quantity, 0, 'COMMA', 0, 'POINT')} + ' đ'">0 đ</td>
+                <td>
+                    <form method="post" th:action="@{/cart/remove}">
+                        <input type="hidden" name="productId" th:value="${item.product.id}" />
+                        <button type="submit" class="btn btn-danger">❌</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
 
-    <div class="cart-total">
-        <strong>Tổng cộng:</strong> <span id="cart-total">0 đ</span>
-    </div>
+        <div class="cart-total">
+            <strong>Tổng cộng:</strong>
+            <span th:text="${#numbers.formatDecimal(cart.totalPrice, 0, 'COMMA', 0, 'POINT')} + ' đ'">0 đ</span>
+        </div>
 
-    <div class="cart-actions">
-        <a href="/shop" class="btn btn-secondary">Tiếp tục mua sắm</a>
-        <a href="/checkout" class="btn btn-primary">Thanh toán</a>
-    </div>
-</main>
+        <div class="cart-actions">
+            <a href="/shop" class="btn btn-secondary">Tiếp tục mua sắm</a>
+            <a href="/checkout" class="btn btn-primary">Thanh toán</a>
+        </div>
+    </main>
+</div>
 
-<footer>
-    <p>&copy; 2025 Pickleball Center. All rights reserved.</p>
-</footer>
-
-<script src="/js/cart.js"></script>
+<th:block layout:fragment="scripts">
+    <script src="/js/cart.js"></script>
+</th:block>
 </body>
 </html>

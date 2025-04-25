@@ -9,6 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -21,26 +24,61 @@ public class OrderController {
     @Autowired
     private OrderItemRepository orderItemRepository;
 
-    // Trang danh sách tất cả các đơn hàng
+    // Trang danh sách đơn hàng
     @GetMapping("")
     public String listOrders(Model model) {
         List<Order> orders = orderRepository.findAll();
         model.addAttribute("orders", orders);
-        return "orders/orders"; // templates/orders/orders.html
+        return "orders/orders";
     }
 
-    // Trang chi tiết đơn hàng theo id
+    // Trang chi tiết đơn hàng
     @GetMapping("/{id}")
     public String viewOrder(@PathVariable Long id, Model model) {
         Order order = orderRepository.findById(id).orElse(null);
         if (order == null) {
-            return "redirect:/orders"; // nếu không thấy thì quay về danh sách
+            return "redirect:/orders";
         }
 
         List<OrderItem> items = orderItemRepository.findByOrder(order);
+
+        // Tính tổng tiền
+        BigDecimal total = items.stream()
+                .map(item -> BigDecimal.valueOf(item.getProduct().getPrice())
+                        .multiply(BigDecimal.valueOf(item.getQuantity())))
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        DecimalFormat df = new DecimalFormat("#,###");
+
+        // Format tổng tiền
+        String totalFormatted = df.format(total) + " đ";
+
+        // Format từng sản phẩm
+        List<String> formattedPrices = new ArrayList<>();
+        for (OrderItem item : items) {
+            BigDecimal itemTotal = BigDecimal.valueOf(item.getProduct().getPrice())
+                    .multiply(BigDecimal.valueOf(item.getQuantity()));
+            formattedPrices.add(df.format(itemTotal) + " đ");
+        }
+
         model.addAttribute("order", order);
         model.addAttribute("items", items);
-        return "orders/detail"; // templates/orders/detail.html
+        model.addAttribute("totalPrice", total);
+        model.addAttribute("totalPriceFormatted", totalFormatted);
+        model.addAttribute("formattedPrices", formattedPrices);
+
+        return "orders/detail";
+    }
+
+    // ✅ Đánh dấu đã nhận hàng
+    @PostMapping("/{id}/receive")
+    public String markAsReceived(@PathVariable Long id) {
+        Order order = orderRepository.findById(id).orElse(null);
+        if (order != null) {
+            order.setStatus("RECEIVED");
+            orderRepository.save(order);
+        }
+        return "redirect:/orders/" + id;
     }
 
     // Xóa đơn hàng
@@ -48,5 +86,11 @@ public class OrderController {
     public String deleteOrder(@PathVariable Long id) {
         orderRepository.deleteById(id);
         return "redirect:/orders";
+    }
+
+    // Trang xác nhận đặt hàng thành công
+    @GetMapping("/confirmation")
+    public String showConfirmationPage() {
+        return "checkout-success";
     }
 }
