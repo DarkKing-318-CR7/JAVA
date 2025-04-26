@@ -1,4 +1,4 @@
 function toggleMenu() {
-    const menu = document.getElementById('leftMenu');
-    menu.classList.toggle('collapsed');
+    const sidebar = document.getElementById("leftMenu");
+    sidebar.classList.toggle("collapsed");
 }
