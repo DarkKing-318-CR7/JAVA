@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,9 +23,26 @@ public class CourtServiceImpl implements CourtService {
     @Override
     public List<CourtDto> getAll() {
         return courtRepository.findAll().stream()
-                .map(c -> modelMapper.map(c, CourtDto.class))
+                .map(this::convertToDto)
                 .collect(Collectors.toList());
     }
+
+    private CourtDto convertToDto(Court court) {
+        CourtDto dto = new CourtDto();
+        dto.setId(court.getId());
+        dto.setName(court.getName());
+        dto.setLocation(court.getLocation());
+        dto.setActive(court.isActive());
+        dto.setAvailable(court.isAvailable());
+        dto.setDescription(court.getDescription());
+        dto.setImageUrl(court.getImageUrl());
+        dto.setPricePerHour(court.getPricePerHour());
+        dto.setType(court.getType());
+        dto.setCreatedAt(court.getCreatedAt());
+        dto.setUpdatedAt(court.getUpdatedAt());
+        return dto;
+    }
+
 
     @Override
     public CourtDto getById(Long id) {
@@ -36,8 +54,11 @@ public class CourtServiceImpl implements CourtService {
     @Override
     public CourtDto create(CourtDto dto) {
         Court court = modelMapper.map(dto, Court.class);
+        court.setCreatedAt(LocalDateTime.now());
+        court.setUpdatedAt(LocalDateTime.now());
         return modelMapper.map(courtRepository.save(court), CourtDto.class);
     }
+
 
     @Override
     public CourtDto update(Long id, CourtDto dto) {

@@ -1,7 +1,8 @@
 package com.example.pickleball.model.dto;
 
-import lombok.*;
-
+import lombok.Data;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Data
 public class CourtDto {
@@ -9,5 +10,12 @@ public class CourtDto {
     private String name;
     private String location;
     private boolean active;
+    private boolean available;
     private String description;
+    private String imageUrl;
+    private BigDecimal pricePerHour;
+    private String type;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+
 }

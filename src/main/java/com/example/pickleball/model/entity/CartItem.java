@@ -1,5 +1,7 @@
 package com.example.pickleball.model.entity;
 import com.example.pickleball.model.entity.Product;
+import lombok.Data;
+@Data
 
 
 public class CartItem {
@@ -12,15 +14,4 @@ public class CartItem {
         this.quantity = quantity;
     }
 
-    public Product getProduct() {
-        return product;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
 }

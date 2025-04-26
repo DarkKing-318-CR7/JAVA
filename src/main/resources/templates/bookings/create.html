@@ -16,12 +16,25 @@
     <form th:action="@{/bookings}" th:object="${booking}" method="post">
       <!-- Chọn sân -->
       <label for="court">Chọn sân:</label>
-      <select id="court" th:field="*{courtId}" required>
+      <select id="court" th:field="*{courtId}" onchange="updateCourtInfo()" required>
         <option value="">-- Chọn sân --</option>
         <option th:each="c : ${availableCourts}"
                 th:value="${c.id}"
-                th:text="${c.name}">Sân</option>
+                th:text="${c.name}"
+                th:data-image="${c.imageUrl}"
+                th:data-location="${c.location}"
+                th:data-description="${c.description}"
+                th:data-price="${c.pricePerHour}">
+        </option>
       </select>
+
+      <!-- Khu vực hiển thị thông tin sân -->
+      <div id="court-info" style="margin-top: 20px; display: none;">
+        <img id="court-image" src="" alt="Hình ảnh sân" style="width: 300px; height: auto; border-radius: 8px; margin-bottom: 10px;" />
+        <p><strong>Địa chỉ:</strong> <span id="court-location"></span></p>
+        <p><strong>Mô tả:</strong> <span id="court-description"></span></p>
+        <p><strong>Giá thuê:</strong> <span id="court-price"></span> VNĐ/giờ</p>
+      </div>
 
       <!-- Ngày -->
       <label for="date">Chọn ngày:</label>
@@ -49,7 +62,7 @@
       <textarea id="notes" th:field="*{notes}" placeholder="Ghi chú thêm..."></textarea>
 
       <!-- Nút submit -->
-      <button type="submit">Đặt sân</button>
+      <button type="submit"> Đặt sân </button>
     </form>
 
     <!-- Thông báo -->
@@ -58,5 +71,7 @@
     </div>
   </main>
 </div>
+
+<script th:src="@{/js/booking.js}"></script>
 </body>
 </html>

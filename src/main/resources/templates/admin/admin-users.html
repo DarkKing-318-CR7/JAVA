@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý Người dùng - Admin</title>
+    <link rel="stylesheet" href="/css/admin.css">
+    <link rel="stylesheet" href="/css/admin-users.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="/js/admin-users.js" defer></script> <!-- ⚡ Sửa đúng file js -->
+</head>
+<body>
+
+<!-- Navbar -->
+<header class="navbar">
+    <div class="logo">🏓 PickleBall Admin</div>
+    <div class="nav-links">
+        <a href="/admin">Trang chủ</a>
+        <a href="/logout">Đăng xuất</a>
+    </div>
+</header>
+
+<!-- Sidebar + Main -->
+<div class="container">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <button class="menu-toggle" onclick="toggleSidebar()">
+            <i class="fas fa-bars"></i>
+        </button>
+        <nav class="menu">
+            <ul>
+                <li><a href="/admin/courts"><i class="fas fa-volleyball-ball"></i> <span>Quản lý Sân</span></a></li>
+                <li><a href="/admin/bookings"><i class="fas fa-calendar-check"></i> <span>Quản lý Đặt Sân</span></a></li>
+                <li><a href="/admin/products"><i class="fas fa-shopping-cart"></i> <span>Quản lý Sản phẩm</span></a></li>
+                <li><a href="/admin/users" class="active"><i class="fas fa-users"></i> <span>Quản lý Người dùng</span></a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <h1>Danh sách Người dùng</h1>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Tài khoản</th>
+                <th>Email</th>
+                <th>Vai trò</th>
+                <th>Trạng thái</th>
+                <th>Hành động</th> <!-- ⚡ Thêm cột hành động -->
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${users}">
+                <td th:text="${user.id}">1</td>
+                <td th:text="${user.username}">Username</td>
+                <td th:text="${user.email}">email@example.com</td>
+                <td th:text="${user.role}">ROLE_USER</td>
+                <td th:text="${user.active ? 'Hoạt động' : 'Khoá'}">Hoạt động</td>
+                <td>
+                    <form th:action="@{'/admin/users/delete/' + ${user.id}}" method="post"
+                          onsubmit="return confirm('Bạn có chắc chắn muốn xóa tài khoản này?');">
+                        <button type="submit" class="btn-delete">Xóa</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </main>
+</div>
+
+<script>
+    function toggleSidebar() {
+        const sidebar = document.getElementById('sidebar');
+        sidebar.classList.toggle('collapsed');
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="/css/admin.css">
+  <script src="/js/admin.js" defer></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<!-- Navbar -->
+<header class="navbar">
+  <div class="logo">🏓 PickleBall Admin</div>
+  <div class="nav-links">
+    <a href="/static">Trang chủ</a>
+    <a href="/logout">Đăng xuất</a>
+  </div>
+</header>
+
+<!-- Sidebar + Main -->
+<div class="container">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <button class="menu-toggle" onclick="toggleSidebar()">
+      <i class="fas fa-bars"></i>
+    </button>
+    <nav class="menu">
+      <ul>
+        <li><a href="/admin/courts"><i class="fas fa-volleyball-ball"></i> <span>Quản lý Sân</span></a></li>
+        <li><a href="/admin/bookings"><i class="fas fa-calendar-check"></i> <span>Quản lý Đặt Sân</span></a></li>
+        <li><a href="/admin/products"><i class="fas fa-shopping-cart"></i> <span>Quản lý Sản phẩm</span></a></li>
+        <li><a href="/admin/users"><i class="fas fa-users"></i> <span>Quản lý Người dùng</span></a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Main content -->
+  <main class="main-content">
+    <h1>Chào mừng Admin!</h1>
+    <p>Chọn một mục trong menu bên trái để bắt đầu quản lý.</p>
+  </main>
+</div>
+
+</body>
+</html>

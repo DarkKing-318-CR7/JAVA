@@ -1,3 +1,4 @@
+/* Sidebar */
 .left-menu {
     position: fixed;
     top: 0;
@@ -12,7 +13,7 @@
 }
 
 .left-menu.collapsed {
-    width: 60px; /* Khi thu gọn chỉ còn 60px */
+    width: 60px;
 }
 
 /* Nút toggle */
@@ -34,7 +35,7 @@
     justify-content: center;
 }
 
-/* Style các mục nav */
+/* Nav links */
 .side-nav ul {
     list-style: none;
     padding: 0;
@@ -61,13 +62,30 @@
     border-radius: 8px;
 }
 
-/* Khi menu thu nhỏ thì ẩn chữ */
-.left-menu.collapsed .menu-text {
-    display: none;
-}
-
 /* Icon luôn hiện */
 .side-nav i {
     min-width: 24px;
     text-align: center;
+}
+
+/* Ẩn chữ khi thu gọn */
+.left-menu.collapsed .menu-text {
+    display: none;
+}
+
+/* Main Content */
+.main-content {
+    margin-left: 220px;
+    padding: 20px;
+    transition: margin-left 0.3s;
+}
+
+.left-menu.collapsed ~ .main-content {
+    margin-left: 60px;
+}
+
+/* Heading */
+h1 {
+    margin-bottom: 20px;
+    color: #333;
 }

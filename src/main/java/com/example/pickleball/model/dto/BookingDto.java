@@ -3,6 +3,7 @@ package com.example.pickleball.model.dto;
 import lombok.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 @Getter
 @Setter
@@ -27,4 +28,14 @@ public class BookingDto {
     private String courtName; // Optional: dùng để hiển thị lại
 
     private String status; // Optional: hiển thị trạng thái (PENDING, CONFIRMED, etc.)
+
+    private String userName;
+
+    public String getFormattedDate() {
+        if (date != null) {
+            return date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        }
+        return "";
+    }
+
 }
