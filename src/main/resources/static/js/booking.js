@@ -1,13 +1,23 @@
-document.getElementById("booking-form").addEventListener("submit", function (e) {
-    e.preventDefault();
+function updateCourtInfo() {
+    const select = document.getElementById('court');
+    const selectedOption = select.options[select.selectedIndex];
 
-    const court = e.target.court.value;
-    const date = e.target.date.value;
-    const time = e.target.time.value;
-    const duration = e.target.duration.value;
+    if (selectedOption && selectedOption.value !== "") {
+        const imageUrl = selectedOption.getAttribute('data-image');
+        const location = selectedOption.getAttribute('data-location');
+        const description = selectedOption.getAttribute('data-description');
+        const price = selectedOption.getAttribute('data-price');
 
-    // Đơn giản là in ra console hoặc alert
-    alert(`Bạn đã đặt ${court} vào lúc ${time} ngày ${date} trong ${duration} giờ.`);
+        // Update thông tin sân
+        document.getElementById('court-image').src = imageUrl;
+        document.getElementById('court-location').innerText = location;
+        document.getElementById('court-description').innerText = description;
+        document.getElementById('court-price').innerText = Number(price).toLocaleString('vi-VN');
 
-    // TODO: gọi API backend để lưu thông tin nếu có
-});
+        // Hiện khối thông tin
+        document.getElementById('court-info').style.display = 'block';
+    } else {
+        // Nếu chọn "-- Chọn sân --" thì ẩn khối
+        document.getElementById('court-info').style.display = 'none';
+    }
+}

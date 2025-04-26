@@ -5,7 +5,8 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.ArrayList;
 import java.util.List;
-import com.example.pickleball.model.entity.CartItem;
+import lombok.Data;
+@Data
 
 
 public class Cart {

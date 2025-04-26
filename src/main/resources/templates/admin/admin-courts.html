@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Quản lý Sân - Admin</title>
+  <link rel="stylesheet" href="/css/admin.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script src="/js/admin-courts.js" defer></script>
+</head>
+<body>
+
+<!-- Navbar -->
+<header class="navbar">
+  <div class="logo">🏓 PickleBall Admin</div>
+  <div class="nav-links">
+    <a href="/admin">Trang chủ</a>
+    <a href="/logout">Đăng xuất</a>
+  </div>
+</header>
+
+<!-- Sidebar + Main -->
+<div class="container">
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <button class="menu-toggle" onclick="toggleSidebar()">
+      <i class="fas fa-bars"></i>
+    </button>
+    <nav class="menu">
+      <ul>
+        <li><a href="/admin/courts" class="active"><i class="fas fa-volleyball-ball"></i> <span>Quản lý Sân</span></a></li>
+        <li><a href="/admin/bookings"><i class="fas fa-calendar-check"></i> <span>Quản lý Đặt Sân</span></a></li>
+        <li><a href="/admin/products"><i class="fas fa-shopping-cart"></i> <span>Quản lý Sản phẩm</span></a></li>
+        <li><a href="/admin/users"><i class="fas fa-users"></i> <span>Quản lý Người dùng</span></a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Main content -->
+  <main class="main-content">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <h2>Danh sách sân</h2>
+      <button id="openModalBtn" class="btn-primary">➕ Thêm sân mới</button>
+    </div>
+
+    <table class="court-table">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Tên sân</th>
+        <th>Địa chỉ</th>
+        <th>Loại</th>
+        <th>Giá (VNĐ)</th>
+        <th>Trạng thái</th>
+        <th>Hành động</th>
+      </tr>
+      </thead>
+      <tbody id="courtTableBody">
+      <tr th:each="court : ${courts}">
+        <td th:text="${court.id}">1</td>
+        <td th:text="${court.name}">Tên sân</td>
+        <td th:text="${court.location}">Địa chỉ</td>
+        <td th:text="${court.type}">Loại</td>
+        <td th:text="${#numbers.formatDecimal(court.pricePerHour, 0, 'COMMA', 0, 'POINT')}">Giá</td>
+        <td>
+          <span th:text="${court.active} ? 'Đang hoạt động' : 'Ngưng hoạt động'"></span>
+        </td>
+        <td>
+          <button class="btn-edit" th:attr="data-id=${court.id}">Sửa</button>
+          <button class="btn-delete" th:attr="data-id=${court.id}">Xóa</button>
+        </td>
+      </tr>
+      </tbody>
+
+    </table>
+  </main>
+</div>
+
+<!-- Modal Thêm/Sửa sân -->
+<div id="courtModal" class="modal">
+  <div class="modal-content">
+    <span class="close-btn" id="closeModalBtn">&times;</span>
+    <h2>Thêm / Sửa sân</h2>
+    <form id="courtForm">
+      <input type="hidden" id="courtId" name="courtId">
+
+      <label for="name">Tên sân:</label>
+      <input type="text" id="name" name="name" required>
+
+      <label for="location">Địa chỉ:</label>
+      <input type="text" id="location" name="location" required>
+
+      <!-- Link hình ảnh -->
+      <label for="imageUrl">Link hình ảnh:</label>
+      <input type="text" id="imageUrl" name="imageUrl" placeholder="Nhập đường dẫn hình ảnh" />
+
+      <!-- Trạng thái hoạt động -->
+      <label for="active">
+        <input type="checkbox" id="active" name="active" />
+        Đang hoạt động
+      </label>
+
+
+      <label for="type">Loại sân:</label>
+      <select id="type" name="type" required>
+        <option value="">-- Chọn loại --</option>
+        <option value="indoor">Trong nhà</option>
+        <option value="outdoor">Ngoài trời</option>
+        <option value="premium">VIP</option>
+      </select>
+
+      <label for="pricePerHour">Giá thuê (VNĐ/giờ):</label>
+      <input type="number" id="pricePerHour" name="pricePerHour" required>
+
+      <label for="description">Mô tả:</label>
+      <textarea id="description" name="description"></textarea>
+
+      <button type="submit" class="btn-primary">Lưu</button>
+    </form>
+  </div>
+</div>
+
+<link rel="stylesheet" href="/css/modal.css">
+<script src="/js/admin.js" defer></script>
+
+</body>
+</html>

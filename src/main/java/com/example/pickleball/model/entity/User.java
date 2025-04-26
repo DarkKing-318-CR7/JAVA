@@ -26,6 +26,8 @@ public class User {
 
 
     private boolean enabled = true;
+    private String role;
+    private boolean active;
 
-    // Constructors, Getters, Setters
+
 }

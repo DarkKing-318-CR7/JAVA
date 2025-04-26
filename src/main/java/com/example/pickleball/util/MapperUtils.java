@@ -11,6 +11,8 @@ public class MapperUtils {
                 .username(user.getUsername())
                 .email(user.getEmail())
                 .fullName(user.getFullName())
+                .role(user.getRole())
+                .active(user.isActive())
                 .build();
     }
 }

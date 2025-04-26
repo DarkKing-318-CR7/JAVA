@@ -12,7 +12,7 @@ public class UserDto {
     private String fullName;
     private String email;
     private String phone;
+    private String role;
+    private Boolean active;
 
-
-    // getter & setter
 }

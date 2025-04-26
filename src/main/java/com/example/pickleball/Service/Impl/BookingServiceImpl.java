@@ -42,6 +42,7 @@ public class BookingServiceImpl implements BookingService {
         booking.setTime(dto.getTime());
         booking.setNotes(dto.getNotes());
         booking.setStatus(BookingStatus.PENDING);
+        booking.setDuration(dto.getDuration());
 
         Court court = courtRepository.findById(dto.getCourtId()).orElseThrow();
         User user = userRepository.findById(dto.getUserId()).orElseThrow();
@@ -101,6 +102,7 @@ public class BookingServiceImpl implements BookingService {
         dto.setCourtName(booking.getCourt().getName());
         dto.setStatus(booking.getStatus().name());
         dto.setDuration(booking.getDuration());
+        dto.setUserName(booking.getUser().getUsername());
         return dto;
     }
 
@@ -108,5 +110,10 @@ public class BookingServiceImpl implements BookingService {
     public List<Booking> getBookingsByUser(Long userId) {
         return bookingRepository.findByUserId(userId);
     }
+    @Override
+    public void deleteById(Long id) {
+        bookingRepository.deleteById(id);
+    }
+
 
 }
