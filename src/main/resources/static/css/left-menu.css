@@ -1,38 +1,40 @@
 .left-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 220px;
-    transition: all 0.3s ease;
-    background: #fff;
-    border-right: 1px solid #ddd;
-    min-height: 100vh;
-    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
-    position: relative;
-    z-index: 10;
+    height: 100%;
+    background-color: #2c3e50;
+    padding-top: 60px;
+    transition: width 0.3s;
+    overflow-x: hidden;
+    z-index: 1000;
 }
 
 .left-menu.collapsed {
-    width: 60px;
+    width: 60px; /* Khi thu gọn chỉ còn 60px */
 }
 
+/* Nút toggle */
 .menu-toggle {
-    position: absolute;
+    position: fixed;
     top: 15px;
-    right: -15px;
-    background: #007bff;
-    color: white;
+    left: 15px;
+    width: 40px;
+    height: 40px;
+    background-color: #3498db;
     border: none;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    font-size: 16px;
+    color: white;
+    font-size: 24px;
     cursor: pointer;
-    z-index: 100;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.side-nav {
-    padding-top: 60px;
-}
-
+/* Style các mục nav */
 .side-nav ul {
     list-style: none;
     padding: 0;
@@ -40,33 +42,32 @@
 }
 
 .side-nav ul li {
-    margin: 0;
+    padding: 10px 20px;
 }
 
 .side-nav ul li a {
     display: flex;
     align-items: center;
-    padding: 12px 20px;
+    gap: 10px;
+    color: white;
     text-decoration: none;
-    color: #333;
-    transition: background 0.3s;
-    font-size: 15px;
+    white-space: nowrap;
+    overflow: hidden;
+    transition: 0.3s;
 }
 
 .side-nav ul li a:hover {
-    background: #f0f4ff;
-    color: #007bff;
+    background: #34495e;
+    border-radius: 8px;
 }
 
-.side-nav ul li a i {
-    margin-right: 10px;
-    font-size: 18px;
-}
-
+/* Khi menu thu nhỏ thì ẩn chữ */
 .left-menu.collapsed .menu-text {
     display: none;
 }
 
-.left-menu.collapsed .side-nav ul li a {
-    justify-content: center;
+/* Icon luôn hiện */
+.side-nav i {
+    min-width: 24px;
+    text-align: center;
 }

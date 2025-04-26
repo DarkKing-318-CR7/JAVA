@@ -11,4 +11,6 @@ public interface UserService {
 
     User findByUsername(String username);
     void updateUserInfo(String username, User updatedUser);
+    void changePassword(String username, String oldPassword, String newPassword);
+
 }
