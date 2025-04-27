@@ -6,57 +6,57 @@
 
 <head>
     <title>Chi tiết đơn hàng</title>
+    <th:block layout:fragment="styles">
+        <link rel="stylesheet" href="/css/order-detail.css">
+    </th:block>
 </head>
 
 <body>
 <div layout:fragment="content">
-    <main class="container">
-        <h2>🧾 Chi tiết đơn hàng</h2>
+    <main class="order-detail-container">
+        <div class="order-detail-wrapper">
+            <h2>🧾 Chi tiết đơn hàng</h2>
 
-        <p><strong>Mã đơn hàng:</strong> <span th:text="${order.id}">#123</span></p>
-        <p><strong>Ngày đặt:</strong> <span th:text="${order.createdAt}">--</span></p>
-        <p><strong>Tổng tiền:</strong> <span th:text="${totalPriceFormatted}">0 đ</span></p>
+            <p><strong>Mã đơn hàng:</strong> <span th:text="${order.id}">#123</span></p>
+            <p><strong>Ngày đặt:</strong> <span th:text="${order.createdAt}">--</span></p>
+            <p><strong>Tổng tiền:</strong> <span th:text="${totalPriceFormatted}">0 đ</span></p>
 
-        <!-- ✅ Nếu chưa xác nhận, hiển thị checkbox gửi POST -->
-        <form th:if="${order.status != 'RECEIVED'}"
-              method="post"
-              th:action="@{'/orders/' + ${order.id} + '/receive'}">
-            <label>
-                <input type="checkbox" onchange="this.form.submit()"> Tôi đã nhận được hàng
-            </label>
-        </form>
+            <!-- Xác nhận nhận hàng -->
+            <div th:if="${order.status != 'RECEIVED'}" class="confirm-receive">
+                <form method="post" th:action="@{'/orders/' + ${order.id} + '/receive'}">
+                    <label class="confirm-label">
+                        <input type="checkbox" onchange="this.form.submit()"> Tôi đã nhận được hàng
+                    </label>
+                </form>
+            </div>
 
-        <!-- ✅ Nếu đã xác nhận -->
-        <p th:if="${order.status == 'RECEIVED'}" style="color: green; font-weight: bold;">
-            ✅ Cảm ơn quý khách!
-        </p>
+            <p th:if="${order.status == 'RECEIVED'}" style="color: green; font-weight: bold;">
+                ✅ Cảm ơn quý khách đã xác nhận đơn hàng!
+            </p>
 
-        <h3>Sản phẩm trong đơn:</h3>
-        <table>
-            <thead>
-            <tr>
-                <th>Tên sản phẩm</th>
-                <th>Số lượng</th>
-                <th>Thành tiền</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="item, iterStat : ${items}">
-                <td th:text="${item.product.name}">Áo</td>
-                <td th:text="${item.quantity}">1</td>
-                <td th:text="${formattedPrices[iterStat.index]}">200.000 đ</td>
-            </tr>
-            </tbody>
-        </table>
+            <h3>🛒 Sản phẩm trong đơn:</h3>
+            <table class="order-detail-table">
+                <thead>
+                <tr>
+                    <th>Tên sản phẩm</th>
+                    <th>Số lượng</th>
+                    <th>Thành tiền</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="item, iterStat : ${items}">
+                    <td th:text="${item.product.name}">Áo</td>
+                    <td th:text="${item.quantity}">1</td>
+                    <td th:text="${formattedPrices[iterStat.index]}">200.000 đ</td>
+                </tr>
+                </tbody>
+            </table>
 
-        <br>
-        <a href="/orders">⬅ Quay lại danh sách đơn hàng</a>
-        <div class="text-center mt-4">
-            <a href="/support" class="btn btn-outline-primary px-4 py-2">
-                💬 Hỗ trợ về đơn hàng
-            </a>
+            <div class="order-detail-actions">
+                <a href="/orders" class="btn btn-secondary">⬅ Quay lại danh sách đơn hàng</a>
+                <a href="/support" class="btn btn-primary">💬 Hỗ trợ về đơn hàng</a>
+            </div>
         </div>
-
     </main>
 </div>
 </body>

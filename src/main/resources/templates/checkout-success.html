@@ -1,17 +1,68 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/master}">
-
 <head>
-    <title layout:title="Thanh toán thành công">Thanh toán thành công</title>
-</head>
+    <title>Thanh toán thành công</title>
 
+    <!-- CSS lồng trực tiếp -->
+    <style>
+        .success-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 80vh;
+            margin-left: 250px; /* né sidebar */
+        }
+
+        .success-card {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .success-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+
+        .success-card h2 {
+            color: #28a745;
+            margin-bottom: 10px;
+        }
+
+        .success-card p {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .btn-back {
+            display: inline-block;
+            background: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .btn-back:hover {
+            background: #0056b3;
+        }
+    </style>
+
+</head>
 <body>
 <div layout:fragment="content">
-    <div style="padding: 20px;">
-        <h2 style="color: green;">✅ Cảm ơn bạn! Đơn hàng đã được đặt thành công.</h2>
-        <p><a th:href="@{/shop}">Quay lại cửa hàng</a></p>
+    <div class="success-container">
+        <div class="success-card">
+            <div class="success-icon">🎉</div>
+            <h2>Đặt hàng thành công!</h2>
+            <p>Cảm ơn bạn đã mua hàng tại Pickleball Shop.</p>
+            <a th:href="@{/shop}" class="btn-back">🛍️ Tiếp tục mua sắm</a>
+        </div>
     </div>
 </div>
 </body>

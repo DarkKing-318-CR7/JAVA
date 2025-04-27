@@ -26,93 +26,95 @@
 
 <body>
 <div layout:fragment="content">
-    <main class="container">
-        <h2>🧾 Thông tin thanh toán</h2>
-        <form id="checkout-form" action="/checkout/process" method="post" class="checkout-form">
-            <label for="name">Họ và tên:</label>
-            <input type="text" id="name" name="name" required>
+    <main class="checkout-container">
+        <div class="checkout-form-wrapper">
+            <h2>🧾 Thông tin thanh toán</h2>
+            <form id="checkout-form" action="/checkout/process" method="post" class="payment-form">
+                <label for="name">Họ và tên:</label>
+                <input type="text" id="name" name="name" required>
 
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
 
-            <label for="phone">Số điện thoại:</label>
-            <input type="text" id="phone" name="phone" required>
+                <label for="phone">Số điện thoại:</label>
+                <input type="text" id="phone" name="phone" required>
 
-            <label for="address">Địa chỉ giao hàng:</label>
-            <textarea id="address" name="address" required></textarea>
+                <label for="address">Địa chỉ giao hàng:</label>
+                <textarea id="address" name="address" required></textarea>
 
-            <h3>Đơn hàng của bạn</h3>
-            <table class="cart-summary">
-                <thead>
-                <tr>
-                    <th>Sản phẩm</th>
-                    <th>Số lượng</th>
-                    <th>Tổng</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="item : ${cart.itemList}">
-                    <td th:text="${item.product.name}">Tên sản phẩm</td>
-                    <td th:text="${item.quantity}">1</td>
-                    <td th:text="${item.product.price * item.quantity} + ' đ'">0 đ</td>
-                </tr>
-                </tbody>
-            </table>
+                <h3>Đơn hàng của bạn</h3>
+                <table class="cart-summary">
+                    <thead>
+                    <tr>
+                        <th>Sản phẩm</th>
+                        <th>Số lượng</th>
+                        <th>Tổng</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="item : ${cart.itemList}">
+                        <td th:text="${item.product.name}">Tên sản phẩm</td>
+                        <td th:text="${item.quantity}">1</td>
+                        <td th:text="${item.product.price * item.quantity} + ' đ'">0 đ</td>
+                    </tr>
+                    </tbody>
+                </table>
 
-            <div class="checkout-total">
-                <strong>Tổng cộng:</strong>
-                <span th:text="${cart.totalPrice} + ' đ'">0 đ</span>
-            </div>
+                <div class="total">
+                    <strong>Tổng cộng:</strong>
+                    <span th:text="${cart.totalPrice} + ' đ'">0 đ</span>
+                </div>
 
-            <!-- Phương thức thanh toán -->
-            <div class="payment-method">
-                <h4>Phương thức thanh toán</h4>
-                <label><input type="radio" name="paymentMethod" value="cod" checked> Thanh toán khi nhận hàng (COD)</label><br>
-                <label><input type="radio" name="paymentMethod" value="bank"> Chuyển khoản ngân hàng</label><br>
-                <label><input type="radio" name="paymentMethod" value="momo"> Ví MoMo</label>
-            </div>
+                <!-- Phương thức thanh toán -->
+                <div class="payment-methods">
+                    <h4>Phương thức thanh toán</h4>
+                    <label><input type="radio" name="paymentMethod" value="cod" checked> Thanh toán khi nhận hàng (COD)</label><br>
+                    <label><input type="radio" name="paymentMethod" value="bank"> Chuyển khoản ngân hàng</label><br>
+                    <label><input type="radio" name="paymentMethod" value="momo"> Ví MoMo</label>
+                </div>
 
-            <!-- QR Modal -->
-            <div id="qr-modal" class="qr-modal">
-                <p>Vui lòng quét mã QR để thanh toán:</p>
-                <img id="qr-img" src="" alt="Mã QR">
-                <br>
-                <button type="button" id="confirm-paid-btn" class="btn btn-success">Tôi đã thanh toán</button>
-            </div>
+                <!-- QR Modal -->
+                <div id="qr-modal" class="qr-modal">
+                    <p>Vui lòng quét mã QR để thanh toán:</p>
+                    <img id="qr-img" src="" alt="Mã QR">
+                    <br>
+                    <button type="button" id="confirm-paid-btn" class="btn btn-success">Tôi đã thanh toán</button>
+                </div>
 
-            <button type="submit" id="submit-btn" class="btn btn-primary">Xác nhận đặt hàng</button>
-        </form>
-
-        <!-- Script để xử lý QR -->
-        <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                const form = document.getElementById("checkout-form");
-                const submitBtn = document.getElementById("submit-btn");
-                const qrModal = document.getElementById("qr-modal");
-                const qrImg = document.getElementById("qr-img");
-                const confirmBtn = document.getElementById("confirm-paid-btn");
-
-                form.addEventListener("submit", function (e) {
-                    const selectedMethod = document.querySelector("input[name='paymentMethod']:checked").value;
-
-                    if (selectedMethod === "bank" || selectedMethod === "momo") {
-                        e.preventDefault(); // Ngăn submit
-
-                        qrImg.src = selectedMethod === "bank" ? "/images/qr-bank.png" : "/images/qr-momo.png";
-                        qrModal.style.display = "block";
-                        submitBtn.disabled = true;
-                    }
-                    // Nếu là COD thì cho phép submit luôn
-                });
-
-                confirmBtn.addEventListener("click", function () {
-                    qrModal.style.display = "none";
-                    submitBtn.disabled = false;
-                    form.submit(); // Gửi lại form sau khi người dùng xác nhận đã thanh toán
-                });
-            });
-        </script>
+                <button type="submit" id="submit-btn" class="btn btn-primary">Xác nhận đặt hàng</button>
+            </form>
+        </div>
     </main>
+
+    <!-- Script để xử lý QR -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const form = document.getElementById("checkout-form");
+            const submitBtn = document.getElementById("submit-btn");
+            const qrModal = document.getElementById("qr-modal");
+            const qrImg = document.getElementById("qr-img");
+            const confirmBtn = document.getElementById("confirm-paid-btn");
+
+            form.addEventListener("submit", function (e) {
+                const selectedMethod = document.querySelector("input[name='paymentMethod']:checked").value;
+
+                if (selectedMethod === "bank" || selectedMethod === "momo") {
+                    e.preventDefault(); // Ngăn submit
+
+                    qrImg.src = selectedMethod === "bank" ? "/images/qr-bank.png" : "/images/qr-momo.png";
+                    qrModal.style.display = "block";
+                    submitBtn.disabled = true;
+                }
+                // Nếu là COD thì cho phép submit luôn
+            });
+
+            confirmBtn.addEventListener("click", function () {
+                qrModal.style.display = "none";
+                submitBtn.disabled = false;
+                form.submit(); // Gửi lại form sau khi người dùng xác nhận đã thanh toán
+            });
+        });
+    </script>
 </div>
 </body>
 </html>

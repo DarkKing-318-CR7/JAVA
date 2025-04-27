@@ -1,9 +1,11 @@
+/* Bộ lọc sản phẩm */
 .product-filters {
     display: flex;
     gap: 1rem;
     margin-bottom: 1.5rem;
     align-items: center;
     flex-wrap: wrap;
+    justify-content: flex-start;
 }
 
 .product-filters select {
@@ -13,6 +15,7 @@
     font-size: 1rem;
 }
 
+/* Lưới sản phẩm */
 .product-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -23,6 +26,7 @@
     padding: 20px;
 }
 
+/* Card sản phẩm */
 .product-card {
     background-color: #fff;
     border: 1px solid #ddd;
@@ -56,6 +60,7 @@
     margin: 0.5rem 0;
 }
 
+/* Nút thêm vào giỏ sản phẩm */
 .btn-add-cart {
     background-color: #28a745;
     color: white;
@@ -69,4 +74,117 @@
 
 .btn-add-cart:hover {
     background-color: #218838;
+}
+
+/* Chi tiết sản phẩm */
+.product-detail-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.product-detail-card {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+}
+
+.product-detail-image {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+.product-detail-info {
+    margin-top: 10px;
+}
+
+.product-detail-info .price {
+    font-size: 22px;
+    color: #e60023;
+    margin: 10px 0;
+}
+
+.product-detail-info .btn-add-cart {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.product-detail-info .btn-add-cart:hover {
+    background-color: #218838;
+}
+
+/* Container chính */
+.shop-container {
+    max-width: 1200px;
+    margin-left: 250px; /* né sidebar */
+    padding: 20px;
+}
+
+/* Ảnh sản phẩm có nút giỏ hàng */
+.product-image-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.product-image-wrapper img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.btn-cart {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-cart:hover {
+    background-color: #218838;
+}
+
+/* Toast thông báo thêm vào giỏ */
+.toast {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: #28a745;
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 30px;
+    font-size: 16px;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    z-index: 9999;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateY(0);
 }
