@@ -7,14 +7,37 @@
 
     <th:block layout:fragment="styles">
         <link rel="stylesheet" th:href="@{/css/products.css}" />
+        <style>
+            /* Toast style */
+            #toast {
+                position: fixed;
+                bottom: 30px;
+                right: 30px;
+                background-color: #28a745;
+                color: white;
+                padding: 12px 24px;
+                border-radius: 30px;
+                font-size: 16px;
+                opacity: 0;
+                pointer-events: none;
+                transform: translateY(20px);
+                transition: opacity 0.5s ease, transform 0.5s ease;
+                z-index: 9999;
+            }
+            #toast.show {
+                opacity: 1;
+                transform: translateY(0);
+                pointer-events: auto;
+            }
+        </style>
     </th:block>
 </head>
 <body>
 <div layout:fragment="content">
-    <div class="container mt-5">
+    <div class="shop-container">
         <h1>🛍️ Danh sách sản phẩm</h1>
 
-        <!-- Bộ Lọc -->
+        <!-- Bộ lọc -->
         <form method="get" th:action="@{/shop}" id="filterForm" class="product-filters mb-3">
             <label for="category">Danh mục:</label>
             <select id="category" name="category" onchange="this.form.submit()">
@@ -24,7 +47,6 @@
                 <option value="shirt" th:selected="${category == 'shirt'}">Áo thi đấu</option>
                 <option value="ball" th:selected="${category == 'ball'}">Bóng thi đấu</option>
                 <option value="snacks" th:selected="${category == 'snacks'}">Đồ ăn nhẹ</option>
-
             </select>
 
             <label for="sort">Sắp xếp:</label>
@@ -35,10 +57,13 @@
             </select>
         </form>
 
-        <!-- Danh sách sản phẩm dạng lưới -->
+        <!-- Danh sách sản phẩm -->
         <div id="product-list" class="product-grid">
             <div th:each="product : ${products}" class="product-card">
-                <img th:src="@{${product.imageUrl}}" alt="Ảnh sản phẩm" />
+                <div class="product-image-wrapper">
+                    <img th:src="@{${product.imageUrl}}" alt="Ảnh sản phẩm" />
+                    <button class="btn-cart" th:onclick="'addToCart(' + ${product.id} + ')'">🛒</button>
+                </div>
                 <h3 th:text="${product.name}">Tên sản phẩm</h3>
                 <p th:text="${product.description}">Mô tả sản phẩm</p>
                 <p class="price" th:text="'Giá: ' + ${product.price} + ' đ'">Giá</p>
@@ -46,10 +71,42 @@
             </div>
         </div>
     </div>
+
+    <!-- Toast sẵn -->
+    <div id="toast"></div>
+
 </div>
 
-<!-- <th:block layout:fragment="scripts">
-    <script th:src="@{/js/products.js}" defer></script>
-</th:block> -->
+<!-- Script chuẩn -->
+<th:block layout:fragment="scripts">
+    <script>
+        function addToCart(productId) {
+            fetch('/cart/add/' + productId, {
+                method: 'POST'
+            })
+                .then(response => {
+                    if (response.ok) {
+                        showToast('🛒 Đã thêm sản phẩm vào giỏ hàng!');
+                    } else {
+                        showToast('❌ Thêm sản phẩm thất bại!');
+                    }
+                })
+                .catch(error => {
+                    showToast('⚠️ Lỗi kết nối!');
+                });
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.innerText = message;
+            toast.classList.add('show');
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+    </script>
+</th:block>
+
 </body>
 </html>

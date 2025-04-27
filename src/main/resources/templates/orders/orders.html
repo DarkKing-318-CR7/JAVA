@@ -5,50 +5,48 @@
 <head>
     <title>Đơn hàng</title>
     <th:block layout:fragment="styles">
-        <!-- Thêm CSS riêng nếu có -->
+        <link rel="stylesheet" href="/css/orders.css">
     </th:block>
 </head>
 <body>
 <div layout:fragment="content">
-    <div class="container mt-5 mb-5">
-        <h2 class="mb-4">🧾 Đơn hàng của bạn</h2>
+    <main class="order-container">
+        <div class="order-wrapper">
+            <h2>🧾 Đơn hàng của bạn</h2>
 
-        <div th:if="${orders.size() == 0}">
-            <p>Không có đơn hàng nào.</p>
+            <div th:if="${orders.size() == 0}">
+                <p>Không có đơn hàng nào.</p>
+            </div>
+
+            <table class="order-table" th:if="${orders.size() > 0}">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Ngày đặt</th>
+                    <th>Tổng tiền</th>
+                    <th>Trạng thái</th>
+                    <th>Thao tác</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="order, iterStat : ${orders}">
+                    <td th:text="${iterStat.index + 1}"></td>
+                    <td th:text="${#temporals.format(order.createdAt, 'dd/MM/yyyy HH:mm')}"></td>
+                    <td th:text="${#numbers.formatDecimal(order.totalAmount, 0, 'COMMA', 0, 'POINT')} + ' đ'"></td>
+                    <td th:text="${order.status}"></td>
+                    <td>
+                        <a th:href="@{'/orders/' + ${order.id}}" class="btn btn-sm btn-info">Chi tiết</a>
+                        <form th:action="@{'/orders/' + ${order.id} + '/delete'}" method="post"
+                              style="display:inline"
+                              onsubmit="return confirm('Bạn có chắc muốn xóa đơn hàng này không?');">
+                            <button type="submit" class="btn btn-sm btn-danger">Xóa</button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
-
-        <table class="table table-hover table-bordered" th:if="${orders.size() > 0}">
-            <thead class="table-primary">
-            <tr>
-                <th>#</th>
-                <th>Ngày đặt</th>
-                <th>Tổng tiền</th>
-                <th>Trạng thái</th>
-                <th>Thao tác</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="order, iterStat : ${orders}">
-                <td th:text="${iterStat.index + 1}"></td>
-                <td th:text="${#temporals.format(order.createdAt, 'dd/MM/yyyy HH:mm')}"></td>
-                <td th:text="${#numbers.formatDecimal(order.totalAmount, 0, 'COMMA', 0, 'POINT')} + ' đ'"></td>
-                <td th:text="${order.status}"></td>
-                <td>
-                    <a th:href="@{'/orders/' + ${order.id}}" class="btn btn-sm btn-info">Chi tiết</a>
-                    <form th:action="@{'/orders/' + ${order.id} + '/delete'}" method="post"
-                          style="display:inline"
-                          onsubmit="return confirm('Bạn có chắc muốn xóa đơn hàng này không?');">
-                        <button type="submit" class="btn btn-sm btn-danger">Xóa</button>
-                    </form>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+    </main>
 </div>
-
-<th:block layout:fragment="scripts">
-    <!-- Thêm JS riêng nếu có -->
-</th:block>
 </body>
 </html>

@@ -1,0 +1,50 @@
+.order-detail-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 90vh;
+    background-color: #f9f9f9;
+    padding: 20px;
+}
+
+.order-detail-wrapper {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 800px;
+}
+
+.order-detail-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.order-detail-table th, .order-detail-table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+}
+
+.order-detail-table th {
+    background-color: #17a2b8;
+    color: white;
+}
+
+.order-detail-actions {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.confirm-receive {
+    margin: 20px 0;
+    text-align: left;
+}
+
+.confirm-label {
+    font-weight: bold;
+    font-size: 16px;
+}
