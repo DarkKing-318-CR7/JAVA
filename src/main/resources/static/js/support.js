@@ -5,7 +5,6 @@ document.addEventListener("DOMContentLoaded", function () {
     form.addEventListener("submit", function (e) {
         e.preventDefault();
 
-        // Giả lập gửi dữ liệu (bạn có thể thay bằng gọi API)
         const formData = new FormData(form);
         console.log("Sending support request:", Object.fromEntries(formData.entries()));
 
