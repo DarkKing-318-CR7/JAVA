@@ -17,12 +17,39 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public Product findById(int id) {
-        // fix: handle Optional
+    public Product getProductById(long id) {
         return productRepository.findById(id).orElse(null);
     }
 
     public List<Product> findByCategory(String category) {
-        return productRepository.findByCategory(category); // dùng phương thức query của Spring Data JPA
+        return productRepository.findByCategory(category);
     }
+
+    public Product save(Product product) {
+        return productRepository.save(product);
+    }
+
+    public Product updateProduct(Long id, Product updatedProduct) {
+        return productRepository.findById(id)
+                .map(existingProduct -> {
+                    existingProduct.setName(updatedProduct.getName());
+                    existingProduct.setDescription(updatedProduct.getDescription());
+                    existingProduct.setPrice(updatedProduct.getPrice());
+                    existingProduct.setImageUrl(updatedProduct.getImageUrl());
+                    return productRepository.save(existingProduct);
+                })
+                .orElse(null);
+    }
+
+    public boolean deleteProduct(Long id) {
+        if (productRepository.existsById(id)) {
+            productRepository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
+    public Product findById(int id) {
+        return productRepository.findById((long) id).orElse(null);
+    }
+
 }
