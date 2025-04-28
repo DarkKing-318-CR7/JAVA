@@ -11,5 +11,4 @@ document.getElementById("register-form").addEventListener("submit", function(e) 
     }
 
     alert(`Đăng ký tài khoản thành công cho: ${username} (${email})`);
-    // Gọi API thật ở đây nếu cần
 });

@@ -4,7 +4,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const closeModalBtn = document.getElementById("closeModalBtn");
     const productForm = document.getElementById("productForm");
 
-    // Hàm lọc sản phẩm theo loại
     function filterByCategory() {
         const selectedCategory = document.getElementById('categoryFilter').value;
         const rows = document.querySelectorAll("#productTableBody tr");
@@ -19,13 +18,10 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // Gọi filter ngay khi load
     filterByCategory();
 
-    // Khi thay đổi category filter
     document.getElementById('categoryFilter').addEventListener("change", filterByCategory);
 
-    // Mở modal thêm mới
     btnCreate.addEventListener("click", () => {
         document.getElementById("modalTitle").innerText = "Thêm sản phẩm mới";
         productForm.reset();
@@ -33,7 +29,6 @@ document.addEventListener("DOMContentLoaded", function () {
         modal.style.display = "block";
     });
 
-    // Đóng modal
     closeModalBtn.addEventListener("click", () => {
         modal.style.display = "none";
     });
