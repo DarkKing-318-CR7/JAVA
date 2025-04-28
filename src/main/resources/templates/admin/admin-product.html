@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý Sản phẩm - Admin</title>
+    <link rel="stylesheet" href="/css/admin.css">
+    <link rel="stylesheet" href="/css/admin-products.css">
+    <link rel="stylesheet" href="/css/modal.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="/js/admin-products.js" defer></script>
+    <script src="/js/admin.js" defer></script>
+</head>
+<body>
+
+<header class="navbar">
+    <div class="logo">🏓 PickleBall Admin</div>
+    <div class="nav-links">
+        <a href="/admin">Trang chủ</a>
+        <a href="/logout">Đăng xuất</a>
+    </div>
+</header>
+
+<div class="container">
+    <aside class="sidebar" id="sidebar">
+        <button class="menu-toggle" onclick="toggleSidebar()">
+            <i class="fas fa-bars"></i>
+        </button>
+        <nav class="menu">
+            <ul>
+                <li><a href="/admin/courts"><i class="fas fa-volleyball-ball"></i> <span>Quản lý Sân</span></a></li>
+                <li><a href="/admin/bookings"><i class="fas fa-calendar-check"></i> <span>Quản lý Đặt Sân</span></a></li>
+                <li><a href="/admin/products" class="active"><i class="fas fa-shopping-cart"></i> <span>Quản lý Sản phẩm</span></a></li>
+                <li><a href="/admin/users"><i class="fas fa-users"></i> <span>Quản lý Người dùng</span></a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h2>Danh sách Sản phẩm</h2>
+            <div class="sort-dropdown">
+                <label for="categoryFilter">Sắp xếp theo loại:</label>
+                <select id="categoryFilter" onchange="filterByCategory()">
+                    <option value="">Tất cả</option>
+                    <option value="shirt">Áo</option>
+                    <option value="shoes">Giày</option>
+                    <option value="ball">Bóng</option>
+                    <option value="racket">Vợt</option>
+                    <option value="snacks">Đồ ăn vặt</option>
+                </select>
+            </div>
+
+
+            <button id="btn-create" class="btn-primary">+ Thêm sản phẩm</button>
+        </div>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Tên sản phẩm</th>
+                <th>Mô tả</th>
+                <th>Giá bán (VNĐ)</th>
+                <th>Phân loại</th>
+                <th>Hình ảnh</th>
+                <th>Hành động</th>
+            </tr>
+            </thead>
+            <tbody id="productTableBody">
+            <tr th:each="product : ${products}">
+                <td th:text="${product.id}">1</td>
+                <td th:text="${product.name}">Tên sản phẩm</td>
+                <td th:text="${product.description}">Mô tả</td>
+                <td th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')}">100,000</td>
+                <td th:text="${product.category}">Loại sản phẩm</td>
+                <td><img th:src="${product.imageUrl}" alt="Hình sản phẩm" width="50"></td>
+                <td>
+                    <button class="btn-edit" th:attr="data-id=${product.id}">Sửa</button>
+                    <button class="btn-delete" th:attr="data-id=${product.id}">Xóa</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </main>
+</div>
+
+<!-- Modal -->
+<div id="productModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" id="closeModalBtn">&times;</span>
+        <h2 id="modalTitle">Thêm / Sửa Sản phẩm</h2>
+        <form id="productForm">
+            <input type="hidden" id="productId">
+
+            <label for="name">Tên sản phẩm:</label>
+            <input type="text" id="name" required>
+
+            <label for="description">Mô tả:</label>
+            <textarea id="description" rows="3"></textarea>
+
+            <label for="price">Giá bán:</label>
+            <input type="number" id="price" required>
+
+            <label for="category">Phân loại:</label>
+            <select id="category" required>
+                <option value="">--Chọn loại sản phẩm--</option>
+                <option value="shirt">Áo</option>
+                <option value="shoes">Giày</option>
+                <option value="ball">Bóng</option>
+                <option value="racket">Vợt</option>
+                <option value="snacks">Đồ ăn vặt</option>
+            </select>
+
+            <label for="imageUrl">Link Hình ảnh:</label>
+            <input type="text" id="imageUrl">
+
+            <button type="submit" class="btn-primary">Lưu</button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>
