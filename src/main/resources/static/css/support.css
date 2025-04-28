@@ -1,12 +1,20 @@
 .support-container {
+    max-width: 600px;
+    margin: 50px auto;
     padding: 30px;
-    background-color: #fff;
-    max-width: 700px;
-    margin: 0 auto;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .support-container h2 {
+    text-align: center;
     margin-bottom: 20px;
+    color: #333;
+}
+
+.form-group {
+    margin-bottom: 15px;
 }
 
 #support-form {
@@ -15,36 +23,56 @@
 }
 
 #support-form label {
-    margin-top: 10px;
     font-weight: bold;
+    color: #555;
+    margin-bottom: 5px;
 }
 
-#support-form input,
-#support-form textarea {
-    padding: 10px;
-    margin-top: 5px;
+.input-icon {
+    position: relative;
+}
+
+.input-icon i {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    color: #888;
+}
+
+.input-icon input,
+.input-icon textarea {
+    width: 100%;
+    padding: 10px 10px 10px 35px; /* Padding left cho icon */
     border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 14px;
+    border-radius: 8px;
+    font-size: 1rem;
 }
 
 #support-form button {
     margin-top: 20px;
     padding: 12px;
-    font-size: 16px;
+    background-color: #007bff;
+    color: white;
     border: none;
-    background-color: #0073e6;
-    color: #fff;
-    border-radius: 6px;
+    border-radius: 8px;
+    font-size: 1.1rem;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 #support-form button:hover {
-    background-color: #005bb5;
+    background-color: #0056b3;
 }
 
-#support-response {
-    margin-top: 20px;
-    font-style: italic;
+.error {
+    color: red;
+    font-size: 0.9rem;
+}
+
+.success-message {
     color: green;
+    font-size: 1rem;
+    text-align: center;
+    margin-top: 20px;
 }

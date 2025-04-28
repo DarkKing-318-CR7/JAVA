@@ -21,6 +21,7 @@
                 <th>Giờ</th>
                 <th>Thời lượng</th>
                 <th>Trạng thái</th>
+                <th>Thao tác</th> <!-- thêm cột mới -->
             </tr>
             </thead>
             <tbody>
@@ -31,6 +32,16 @@
                 <td th:text="${booking.time}">09:00</td>
                 <td th:text="${booking.duration} + ' giờ'">2 giờ</td>
                 <td th:text="${booking.status}">PENDING</td>
+                <td>
+                    <th:block th:if="${booking.status == 'PENDING'}">
+                        <form th:action="@{/bookings/cancel}" method="post" style="display:inline;">
+                            <input type="hidden" name="bookingId" th:value="${booking.id}" />
+                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc chắn muốn hủy đặt sân này không?');">
+                                Hủy
+                            </button>
+                        </form>
+                    </th:block>
+                </td>
             </tr>
             </tbody>
         </table>

@@ -73,4 +73,16 @@ public class BookingController {
         model.addAttribute("bookings", bookings);
         return "bookings/booking-history";
     }
+    // ✅ Hủy đặt sân
+    @PostMapping("/cancel")
+    public String cancelBooking(@RequestParam("bookingId") Long bookingId,
+                                Principal principal,
+                                RedirectAttributes redirectAttributes) {
+        Long userId = userService.getUserIdByUsername(principal.getName());
+        bookingService.cancelBooking(bookingId, userId);
+
+        redirectAttributes.addFlashAttribute("success", "Đã hủy đặt sân thành công!");
+        return "redirect:/bookings/history";
+    }
+
 }

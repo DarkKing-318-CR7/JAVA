@@ -114,6 +114,19 @@ public class BookingServiceImpl implements BookingService {
     public void deleteById(Long id) {
         bookingRepository.deleteById(id);
     }
+    @Override
+    public void cancelBooking(Long bookingId, Long userId) {
+        Booking booking = bookingRepository.findById(bookingId)
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy booking"));
+
+        if (!booking.getUser().getId().equals(userId)) {
+            throw new RuntimeException("Bạn không có quyền hủy booking này");
+        }
+
+        booking.setStatus(BookingStatus.CANCELLED); // Cập nhật trạng thái
+        bookingRepository.save(booking);
+    }
+
 
 
 }

@@ -10,8 +10,4 @@ public class HomeController {
     public String homePage() {
         return "index"; // Trả về trang chủ
     }
-    @GetMapping("/support")
-    public String supportPage() {
-        return "support/support"; // đúng với đường dẫn bạn đã cho ở ảnh
-    }
 }
