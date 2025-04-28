@@ -4,13 +4,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const courtModal = document.getElementById('courtModal');
     const courtForm = document.getElementById('courtForm');
 
-    // Mở modal thêm mới
     openModalBtn.addEventListener('click', () => {
         courtForm.reset();
         courtModal.style.display = 'block';
     });
 
-    // Đóng modal
     closeModalBtn.addEventListener('click', () => {
         courtModal.style.display = 'none';
     });
@@ -21,7 +19,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Submit form thêm/sửa sân
     courtForm.addEventListener('submit', function(event) {
         event.preventDefault();
 

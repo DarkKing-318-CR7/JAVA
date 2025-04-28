@@ -7,13 +7,11 @@ header {
     justify-content: space-between;
 }
 
-/* logo bên trái */
 header .logo {
     font-size: 1.5em;
     font-weight: bold;
 }
 
-/* nav chứa menu nằm ngang */
 header nav .nav-links {
     display: flex;
     list-style: none;
@@ -22,7 +20,6 @@ header nav .nav-links {
     padding: 0;
 }
 
-/* từng item */
 header nav .nav-links li a {
     color: white;
     text-decoration: none;
